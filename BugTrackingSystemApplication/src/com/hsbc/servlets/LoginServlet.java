@@ -40,7 +40,7 @@ public class Loginservlet extends HttpServlet {
 	    {
 	        String userValidate = loginDao.authenticateUser(emailId,password);
 	 
-	        if(userValidate.equals("Project_Manager"))
+	        if(userValidate.equals("ProjectManager"))
 	        {
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
 	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -58,7 +58,7 @@ public class Loginservlet extends HttpServlet {
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "ProjectManager");
-	            req.getRequestDispatcher("pmpage.html").forward(req, resp);
+	            req.getRequestDispatcher("pmpage.jsp").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Developer"))
 	        {   
@@ -107,7 +107,7 @@ public class Loginservlet extends HttpServlet {
 	            System.out.println("Error message = "+userValidate);
 	            req.setAttribute("errMessage", userValidate);
 	 
-	            req.getRequestDispatcher("login.html").forward(req, resp);
+	            req.getRequestDispatcher("login.jsp").forward(req, resp);
 	        }
 	    }
 	    catch (Exception e2)

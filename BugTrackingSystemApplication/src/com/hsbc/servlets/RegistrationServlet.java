@@ -14,12 +14,12 @@ import com.hsbc.dao.RegistrationDao;
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+   /*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-
+*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email=request.getParameter("email");
@@ -37,11 +37,11 @@ public class RegistrationServlet extends HttpServlet {
 		if(message.equals("User Registered Successfully!"))
 		{
 			
-			request.getRequestDispatcher("/Login.jsp").forward(request,response);
+			request.getRequestDispatcher("login.jsp").forward(request,response);
 		}
 		else 
 		{
-			request.getRequestDispatcher("/Register.jsp").forward(request,response);
+			request.getRequestDispatcher("register.jsp").forward(request,response);
 
 		}	
 	}
