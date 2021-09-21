@@ -1,8 +1,7 @@
-package com.login.controller;
+package com.hsbc.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,26 +13,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.login.dao.LoginDao;
+import com.hsbc.dao.LoginDaoIntf;
+import com.hsbc.dao.Logindao;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/Loginservlet")
+public class Loginservlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+   
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
 
-	@Override
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		PrintWriter out = resp.getWriter();
 		
-		String emailId = req.getParameter("emailId");
-	    String password = req.getParameter("password");
-	    String role = "";
-	    /*LoginBean loginBean = new LoginBean();
-	    
-	    loginBean.setemailId(emailId);
-	    loginBean.setPassword(password);
-	    */
-	 
-	    LoginDao loginDao = new LoginDao();
+		String emailId = req.getParameter("email");
+	    String password = req.getParameter("psw");
+	  
+	    LoginDaoIntf loginDao = new Logindao();
 	 
 	    try
 	    {
@@ -46,65 +47,73 @@ public class LoginServlet extends HttpServlet {
 	        	String dateStr = formatter.format(lastlogin);
 	        	System.out.println(dateStr);
 	  
-	        	out.println("Last login: " + dateStr);
+	        	//out.println("Last login: " + dateStr);
 	        	
 	        	loginDao.updateLoginTime(emailId);
-	            out.println("Project Manager's Page");
+	            //out.println("Project Manager's Page");
 	 
 	            HttpSession session = req.getSession(); //Creating a session
-	            session.setAttribute("ProjectManager", role); //setting session attribute
+	            String seshId = session.getId();
+	            session.setAttribute("session_id",seshId);
 	            req.setAttribute("emailId", emailId);
-	 
-	            //req.getreqDispatcher("/JSP/Admin.jsp").forward(req, resp);
+	            req.setAttribute("last_login", dateStr);
+	            req.setAttribute("role", "ProjectManager");
+	            req.getRequestDispatcher("pmpage.html").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Developer"))
 	        {   
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
 	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        	String dateStr = formatter.format(lastlogin);
-	        	out.println("Last login: " + dateStr);
+	        	//out.println("Last login: " + dateStr);
 	        	
 	        	loginDao.updateLoginTime(emailId);
 	        	
-	        	out.println("Developer Page");
+	        	//out.println("Developer Page");
 	            System.out.println("Developer's Home");
 	 
 	            HttpSession session = req.getSession();
-	            session.setAttribute("Developer", role);
+	            String seshId = session.getId();
+	            session.setAttribute("session_id",seshId);
 	            req.setAttribute("emailId", emailId);
+	            req.setAttribute("last_login", dateStr);
+	            req.setAttribute("role", "Developer");
+
 	 
-	            //req.getreqDispatcher("/JSP/Editor.jsp").forward(req, resp);
+	            req.getRequestDispatcher("developerpage.html").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Tester"))
 	        {
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
 	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        	String dateStr = formatter.format(lastlogin);
-	        	out.println("Last login: " + dateStr);
+	        	//out.println("Last login: " + dateStr);
 	        	
 	        	loginDao.updateLoginTime(emailId);
-	        	out.println("Tester's Page");
+	        	//out.println("Tester's Page");
 	            System.out.println("Tester's Home");
 	 
 	            HttpSession session = req.getSession();
-	            session.setMaxInactiveInterval(10*60);
-	            session.setAttribute("Tester", role);
+	            String seshId = session.getId();
+	            session.setAttribute("session_id",seshId);
 	            req.setAttribute("emailId", emailId);
-	 
-	           // req.getreqDispatcher("/JSP/User.jsp").forward(req, resp);
+	            req.setAttribute("last_login", dateStr);
+	            req.setAttribute("role", "Tester");
+	             
+	            req.getRequestDispatcher("testerpage.html").forward(req, resp);
 	        }
 	        else
 	        {
 	            System.out.println("Error message = "+userValidate);
 	            req.setAttribute("errMessage", userValidate);
 	 
-	           // req.getreqDispatcher("/JSP/Login.jsp").forward(req, resp);
+	            req.getRequestDispatcher("login.html").forward(req, resp);
 	        }
 	    }
 	    catch (Exception e2)
 	    {
 	        e2.printStackTrace();
 	    }
-	} 
-   
+	}
+
 }

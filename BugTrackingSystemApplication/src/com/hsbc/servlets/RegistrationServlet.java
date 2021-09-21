@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.beans.Users;
 import com.hsbc.dao.RegistrationDao;
-import com.hsbc.dao.RegistrationDaoIntf;
+//import com.hsbc.dao.RegistrationDaoIntf;
 
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {

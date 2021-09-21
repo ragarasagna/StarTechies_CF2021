@@ -1,4 +1,4 @@
-package com.login.dao;
+package com.hsbc.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,19 +6,58 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.Date;
 
-import com.login.util.DBConnection;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginDao implements LoginDaoIntf {
-	
+import com.hsbc.util.JDBCUtility;
+
+public class Logindao implements LoginDaoIntf{
+
 	private Connection con = null;
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 	
-	public boolean checkPassword(String plainPassword,String hashedPassword) {
+	public String authenticateUser(String emailId, String password) {
+		// TODO Auto-generated method stub
+		String emailIdDB = "";
+		String passwordDB = "";
+		String roleDB = "";
+		
+
+		try {
+			//con = DBConnection.getConnection(props[0],props[1],props[2]);
+			try {
+				con= JDBCUtility.getConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			statement = con.createStatement();
+			resultSet = statement.executeQuery("select email_id,password,role from registeredUsers");
+
+			while (resultSet.next()) {
+				emailIdDB = resultSet.getString("email_id");
+				passwordDB = resultSet.getString("password");
+				roleDB = resultSet.getString("role");
+
+				if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("ProjectManager"))
+					return "Project_Manager";
+				else if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("Developer"))
+					return "Developer";
+				else if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("Tester"))
+					return "Tester";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "Invalid user credentials";
+	}
+	
+
+	@Override
+	public boolean checkPassword(String plainPassword, String hashedPassword) {
+		// TODO Auto-generated method stub
 		if(BCrypt.checkpw(plainPassword,hashedPassword)) {
 			return true;
 		}
@@ -26,10 +65,12 @@ public class LoginDao implements LoginDaoIntf {
 			return false;
 		}
 	}
-	
+
+	@Override
 	public void updateLoginTime(String emailId) {
+		// TODO Auto-generated method stub
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		String query = "UPDATE registeredUsers SET last_login = ? WHERE email_id = ?";
+		String query = "UPDATE Users SET last_login = ? WHERE email_id = ?";
 		System.out.println(query);
 		
 		try {
@@ -48,9 +89,11 @@ public class LoginDao implements LoginDaoIntf {
 			e.printStackTrace();
 		}
 	}
-		
+
+	@Override
 	public Date getLastLoginTime(String emailId) {
-		String getDateQuery = "SELECT last_login FROM registeredUsers WHERE email_id =" + "'" + emailId + "'";
+		// TODO Auto-generated method stub
+		String getDateQuery = "SELECT last_login FROM Users WHERE email_id =" + "'" + emailId + "'";
 		System.out.println(getDateQuery);
 		Statement st;
 		try {
@@ -66,35 +109,5 @@ public class LoginDao implements LoginDaoIntf {
 		return null;
 	}
 
-	public String authenticateUser(String emailId, String password) {
-
-		String emailIdDB = "";
-		String passwordDB = "";
-		String roleDB = "";
-		System.out.println("Reading props");
-		String[] props = DBConnection.readProperties();
-		System.out.println(Arrays.toString(props));
-
-		try {
-			con = DBConnection.getConnection(props[0],props[1],props[2]);
-			statement = con.createStatement();
-			resultSet = statement.executeQuery("select email_id,password,role from registeredUsers");
-
-			while (resultSet.next()) {
-				emailIdDB = resultSet.getString("email_id");
-				passwordDB = resultSet.getString("password");
-				roleDB = resultSet.getString("role");
-
-				if (emailId.equals(emailIdDB) && password.equals(passwordDB) && roleDB.equals("ProjectManager"))
-					return "Project_Manager";
-				else if (emailId.equals(emailIdDB) && password.equals(passwordDB) && roleDB.equals("Developer"))
-					return "Developer";
-				else if (emailId.equals(emailIdDB) && password.equals(passwordDB) && roleDB.equals("Tester"))
-					return "Tester";
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "Invalid user credentials";
-	}
 }
+
