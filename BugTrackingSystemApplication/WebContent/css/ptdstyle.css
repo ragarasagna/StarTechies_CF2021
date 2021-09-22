@@ -1,0 +1,83 @@
+body {
+        background-image: url('../images/bg.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+
+#nav-bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        }
+
+.navbar {
+        background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+        padding: 0 !important;
+        height:90px;
+        font-family: 'Amatic SC', cursive;
+        }
+
+.navbar-brand {
+        font-family:'Amatic SC', cursive;
+        color: #fff!important;
+        font-size: 50px;
+        font-weight: bolder;
+        }
+
+.navbar-brand i{
+        color:black;
+        font-size: 50px;
+}
+.navbar ul{
+        font-family: sans-serif;
+}
+
+.navbar-text{
+        font-size: large;
+}
+form {
+        border: 2px solid black;
+        width: 30%;
+        padding: 30px;
+        margin: auto;
+        font-size:large;
+        }
+
+        /* Full-width input fields */
+input[type=text],
+input[type=password] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* Set a style for the submit button */
+        .teambtn {
+            background-color: black;
+            color: white;
+            padding: 16px 15px;
+            margin: 7px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+            
+        }
+
+        .teambtn:hover {
+            opacity: 1;
+        }
+
+        footer {
+            /*background-color: #d30909;*/
+            background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }

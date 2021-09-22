@@ -56,7 +56,7 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 					String s2=(user.getUserRole());
 
 					
-					//if(s1.equals(s2)) {
+					if(s1.equals(s2)) {
 						
 					Users u= new Users();
 					u.setUserId(result1.getString("user_id"));
@@ -78,6 +78,8 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 						message="Your role does not match with the records!";
 					}
 				}
+					else {message="This role is not yet given access!";}
+				}
 					
 				
 			else {
@@ -89,6 +91,7 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 			else {
 				message="Already Registered!";
 			}
+		
 		}
 		catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

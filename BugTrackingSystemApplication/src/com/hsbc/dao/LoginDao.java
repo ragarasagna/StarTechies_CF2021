@@ -34,7 +34,7 @@ public class Logindao implements LoginDaoIntf{
 				e.printStackTrace();
 			}
 			statement = con.createStatement();
-			resultSet = statement.executeQuery("select email_id,password,role from registeredUsers");
+			resultSet = statement.executeQuery("select email_id,password,role from Users");
 
 			while (resultSet.next()) {
 				emailIdDB = resultSet.getString("email_id");
@@ -42,7 +42,7 @@ public class Logindao implements LoginDaoIntf{
 				roleDB = resultSet.getString("role");
 
 				if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("ProjectManager"))
-					return "Project_Manager";
+					return "ProjectManager";
 				else if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("Developer"))
 					return "Developer";
 				else if (emailId.equals(emailIdDB) && checkPassword(password,passwordDB) && roleDB.equals("Tester"))
