@@ -1,0 +1,103 @@
+@charset "ISO-8859-1";
+body {
+        background-image: url('../images/bg.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        overflow: hidden;
+        }
+
+#nav-bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        }
+
+.navbar {
+        background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+        padding: 0 !important;
+        height:90px;
+        font-family: 'Amatic SC', cursive;
+        }
+
+.navbar-brand {
+        font-family:'Amatic SC', cursive;
+        color: #fff!important;
+        font-size: 50px;
+        font-weight: bolder;
+        }
+
+.navbar-brand i{
+        color:black;
+        font-size: 50px;
+}
+.navbar ul{
+        font-family: sans-serif;
+}
+footer {
+         /*background-color: #d30909;*/
+        background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+        color: white;
+        padding: 15px;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        }
+ .file-wrapper{
+     width:100%;
+     margin:auto;
+     height:100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding-bottom: 250px;
+ }
+ .upload-btn-wrapper{
+     position: relative;
+     overflow: hidden;
+     display: inline-block;
+     cursor: pointer;
+ }
+ .upload-file{
+     border:2px dashed #eee;
+     color:#9b9b9b;
+     background-color: white;
+     width:400px;
+     height:250px;
+     border-radius: 8px;
+     font-size:15px;
+     cursor: pointer;
+ }
+ .upload-btn-wrapper input[type=file]{
+     width:100%;
+     position: absolute;
+     left:0;
+     right:0;
+     top:0;
+     opacity: 0;
+     cursor: pointer;
+     min-height: 300px;
+ }
+ .success{
+     display:none;
+ }
+ .success i{
+     font-size:22px;
+     margin-left:6px;
+     margin-top:10px;
+     color:red;
+ }
+ .font-50{
+     font-size:50px;
+ }
+ .d-block{
+     display: block;
+ }
+ .btn .upload-file{
+     font-size:13px;
+ }
+ .upload-btn{
+     display: block;
+     font-size:18px;
+     color:red;
+ }
