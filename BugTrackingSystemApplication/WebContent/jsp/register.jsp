@@ -32,6 +32,7 @@
 </head>
 
 <body>
+
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -52,8 +53,7 @@
             </div>
         </nav>
     </section>
-	
-    <form action="RegistrationServlet" method="POST" >
+    <form action="../jsp/RegistrationServlet" method="POST" onsubmit="return validateForm() ">
         <h1 align="center">Register</h1>
         <hr>
 	<h4>
@@ -64,7 +64,7 @@
         </div>
         <div class="box">
             <label>Role</label>
-            <select name="role" id="role">
+            <select name="role" id="role" required>
                 <option>Select Role</option>
                 <option>ProjectManager</option>
                 <option>Developer</option>
@@ -83,12 +83,13 @@
             <div class="error" id="passcheckErr"></div>
         </div>
 	
-            <input type="submit" class="registerbtn" value="Register">
-            <input type="submit" value="register">
-            <h4>Already have an account? <a href="../html/login.html">Login</a></h4>
+            <input type="submit" class="registerbtn" value="Register" >
+            <h4>Already have an account? <a href="../jsp/login.jsp">Login</a></h4>
     </h4>
-        
+           
+       
     </form>
+   <center> <h2>${requestScope.message}</h2></center>
 	<br>
     <footer class="container-fluid text-center">
         <p><i class="fa fa-copyright"></i>All Rights Reserved </p>

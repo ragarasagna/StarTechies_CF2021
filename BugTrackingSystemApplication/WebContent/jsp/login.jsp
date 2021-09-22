@@ -56,7 +56,7 @@
                         </section>
 
                         <br><br><br>
-                        <form action="Loginservlet" method="POST">
+                        <form action="../jsp/Loginservlet" method="POST">
                             <div class="container">
                                 <h1 align="center">Login</h1>
                                 <hr>
@@ -69,7 +69,7 @@
 
                                     <button type="submit" class="loginbtn">Login</button>
                                 </h4>
-                                <h4>Don't have an account? <a href="../html/register.html">Register</a></h4>
+                                <h4>Don't have an account? <a href="../jsp/register.jsp">Register</a></h4>
 
                             </div>
 

@@ -2,6 +2,7 @@ package com.hsbc.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,18 +17,13 @@ import javax.servlet.http.HttpSession;
 import com.hsbc.dao.LoginDaoIntf;
 import com.hsbc.dao.Logindao;
 
-@WebServlet("/Loginservlet")
-public class Loginservlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	
+
+@WebServlet("/jsp/Loginservlet")
+public class Loginservlet extends HttpServlet {
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		PrintWriter out = resp.getWriter();
 		
@@ -43,9 +39,20 @@ public class Loginservlet extends HttpServlet {
 	        if(userValidate.equals("ProjectManager"))
 	        {
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
-	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        	String dateStr = formatter.format(lastlogin);
-	        	System.out.println(dateStr);
+	        	String dateStr;
+	        	//If last login is not available,get the current timeStamp and display it.
+	        	//If it is available, display that.
+	        	if(lastlogin != null) {
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(lastlogin);
+		        	System.out.println(dateStr);
+	        	}else {
+	        		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(timestamp);
+		        	System.out.println(dateStr);
+	        	}
+	      
 	  
 	        	//out.println("Last login: " + dateStr);
 	        	
@@ -58,14 +65,25 @@ public class Loginservlet extends HttpServlet {
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "ProjectManager");
-	            req.getRequestDispatcher("pmpage.jsp").forward(req, resp);
+	            req.getRequestDispatcher("../jsp/pmpage.jsp").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Developer"))
 	        {   
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
-	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        	String dateStr = formatter.format(lastlogin);
-	        	//out.println("Last login: " + dateStr);
+	        	String dateStr = "";
+	        	//If last login is not available,get the current timeStamp and display it.
+	        	//If it is available, display that.
+	        	if(lastlogin != null) {
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(lastlogin);
+		        	System.out.println(dateStr);
+	        	}else {
+	        		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(timestamp);
+		        	System.out.println(dateStr);
+	        	}
+	        	out.println("Last login: " + dateStr);
 	        	
 	        	loginDao.updateLoginTime(emailId);
 	        	
@@ -80,14 +98,22 @@ public class Loginservlet extends HttpServlet {
 	            req.setAttribute("role", "Developer");
 
 	 
-	            req.getRequestDispatcher("developerpage.html").forward(req, resp);
+	            req.getRequestDispatcher("../jsp/developerpage.jsp").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Tester"))
 	        {
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
-	        	DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        	String dateStr = formatter.format(lastlogin);
-	        	//out.println("Last login: " + dateStr);
+	        	String dateStr = "";
+	        	if(lastlogin != null) {
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(lastlogin);
+		        	System.out.println(dateStr);
+	        	}else {
+	        		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        	dateStr = formatter.format(timestamp);
+		        	System.out.println(dateStr);
+	        	}
 	        	
 	        	loginDao.updateLoginTime(emailId);
 	        	//out.println("Tester's Page");
@@ -100,20 +126,20 @@ public class Loginservlet extends HttpServlet {
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "Tester");
 	             
-	            req.getRequestDispatcher("testerpage.html").forward(req, resp);
+	            req.getRequestDispatcher("../jsp/testerpage.jsp").forward(req, resp);
 	        }
 	        else
 	        {
 	            System.out.println("Error message = "+userValidate);
 	            req.setAttribute("errMessage", userValidate);
 	 
-	            req.getRequestDispatcher("login.jsp").forward(req, resp);
+	            req.getRequestDispatcher("../jsp/login.jsp").forward(req, resp);
 	        }
 	    }
 	    catch (Exception e2)
 	    {
 	        e2.printStackTrace();
 	    }
-	}
-
+	} 
+   
 }

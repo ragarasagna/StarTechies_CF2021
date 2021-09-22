@@ -26,7 +26,7 @@
                     <section id="nav-bar">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <div class="container-fluid">
-                                <a class="navbar-brand" href="home.html" style="font-size: 60px;"><i
+                                <a class="navbar-brand" href="../jsp/home.jsp" style="font-size: 60px;"><i
                                         class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
@@ -37,20 +37,20 @@
                                     <div class="collapse navbar-collapse" id="navbarText">
                                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="pmpage.html" role="button"><i
+                                                <a class="btn btn-warning" href="../jsp/pmpage.jsp" role="button"><i
                                                         class="fas fa-user"></i>
                                                     Profile</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="newproject.html" role="button"><i
+                                                <a class="btn btn-warning" href="../jsp/newproject.jsp" role="button"><i
                                                         class="fas fa-project-diagram"></i> New Project</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="pmdisplayproject.html" role="button"><i
+                                                <a class="btn btn-warning" href="../jsp/pmdisplayproject.jsp" role="button"><i
                                                         class="fas fa-tasks"></i> Project Details</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                                <a class="btn btn-warning" href = "../jsp/LogOutServlet" role="button"><i
                                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                                 </button>
                                             </li>
@@ -66,15 +66,13 @@
                         <div class="container">
                             <h1 align="center">Profile</h1>
                             <hr>
-
                             <label for="email"><b>Email</b></label>
-                            <p> Your Email id is:</p>
+                            <p><%=request.getAttribute("emailId") %></p>
 
                             <label for="role"><b>Role</b></label>
-                            <p> Your Role is:</p>
-
-                            <label for="loggedin"><b>Last Logged in</b></label>
-                            <p> Last Logged in at:</p>
+                            <p><%=request.getAttribute("role") %></p>
+                            <label for="lastlogin"><b>Last Login</b></label>
+                            <p><%=request.getAttribute("last_login") %></p>
 
                         </div>
 
