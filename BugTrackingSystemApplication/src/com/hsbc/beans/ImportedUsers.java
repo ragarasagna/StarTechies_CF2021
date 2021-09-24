@@ -2,8 +2,12 @@ package com.hsbc.beans;
 
 public class ImportedUsers {
 private String userId,userName,userRole,userEmail;
-
-	
+public ImportedUsers() {}
+public ImportedUsers(String userName,String role)
+{
+	this.userName=userName;
+	this.userRole=role;
+}
 	public String getUserId() {
 		return userId;
 	}

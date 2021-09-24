@@ -67,12 +67,12 @@
                             <hr>
 
                            <label for="email"><b>Email</b></label>
-                            <p> Your Email id is: <%=request.getAttribute("emailId") %></p>
+                            <p><%=request.getAttribute("emailId") %></p>
 
                             <label for="role"><b>Role</b></label>
-                            <p> Your Role is:<%=request.getAttribute("role") %></p>
+                            <p><%=request.getAttribute("role") %></p>
                             <label for="lastlogin"><b>Last Login</b></label>
-                            <p> You last logged in at :<%=request.getAttribute("last_login") %></p>
+                            <p><%=request.getAttribute("last_login") %></p>
 
                         </div>
 

@@ -22,7 +22,7 @@
                         rel="stylesheet">
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
                     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-                    <script src="importUsersValidation.js" type="text/javascript"></script>
+                    <script src="../js/importUsersValidation.js" type="text/javascript"></script>
                 </head>
 
 
@@ -36,7 +36,7 @@
                             </div>
                         </nav>
                     </section>
-                    <form method="post" >
+                    <form method="post" action="../jsp/ImportUsersServlet" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row it">
                                 <div class="col-sm-offset-1 col-sm-10" id="one">
@@ -56,8 +56,10 @@
                                                     <img src="https://image.flaticon.com/icons/svg/136/136549.svg"
                                                         class="icon">
                                                     <span class="upl" id="upload">Upload document</span>
-                                                    <input type="file" class="upload up" id="up"
+                                                    <input type="file" class="upload up" id="up" name="up"
                                                         onchange="readURL(this);" required />
+                                                        
+                                                        
                                                 </div>
                                             </div>
                                             <div class="col-sm-8">

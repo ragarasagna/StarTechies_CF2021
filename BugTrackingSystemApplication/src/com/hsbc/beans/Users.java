@@ -6,7 +6,11 @@ public class Users extends ImportedUsers{
 	private String password;
 	private Timestamp lastLogin;
 	int projectCounter;
-	
+	public Users() {super();}
+	public Users(String userName,String role)
+	{
+		super(userName,role);
+	}
 
 	public String getPassword() {
 		return password;
