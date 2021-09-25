@@ -42,7 +42,7 @@
                                                         class="fas fa-user"></i> Profile</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="../jsp/developerproject.jsp" role="button"><i
+                                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned" role="button"><i
                                                         class="fas fa-spider"></i> Project Assigned</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">

@@ -12,10 +12,15 @@ public class ImportUsersService implements ImportUsersServiceIntf{
 		dao= new ImportUsersDao();
 	}
 	@Override
-	public void readFile(String filePath) {
+	public void readFile() {
 		// TODO Auto-generated method stub
 				
-			dao.readFile(filePath);
+			try {
+				dao.readFile();
+			} catch (UploadNotSuccessfulException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	 
 		
 	}

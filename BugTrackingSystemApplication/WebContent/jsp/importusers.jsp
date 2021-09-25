@@ -70,7 +70,7 @@
                                         </div>
                                     </div><br><br><br>
                                     <div class="text-center">
-                                        <a class="btn btn-new"><i class="fa fa-plus"></i> Add new</a>
+                                       <!--  <a class="btn btn-new"><i class="fa fa-plus"></i> Add new</a>-->
                                         <button type="submit" value="submit" class="btn btn-next"><i class="fa fa-paper-plane"></i>
                                             Submit</a>
                                             <!--<input type="submit" class="btn btn-next"></input>-->

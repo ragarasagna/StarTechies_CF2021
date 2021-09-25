@@ -87,35 +87,46 @@ public class ProjectDetailsDao implements ProjectDetailsDaoIntf{
 				e.printStackTrace();
 			}
 			System.out.println(dateStr);
+			System.out.println("start date from dao: "+dateStr);
 			return dateStr;
 		}
 	@Override
 	public ArrayList<Bugs> getProjectBugsList(String projectName) {
 		// TODO Auto-generated method stub
-		ArrayList<Bugs> bugsList= null;
+		ArrayList<Bugs> bugsList= new ArrayList<Bugs>();
 		String getBugsQuery = " select * from bugs where project_name=?";
 		try {
 		 PreparedStatement pst = con.prepareStatement(getBugsQuery);
 		 pst.setString(1,projectName);
 		 ResultSet rs = pst.executeQuery();
 		 while(rs.next()) {
-			 String bugId = rs.getString(1);
+             String bugid= rs.getString(1);
 			 String bugTitle = rs.getString(2);
 			 String bugDesc = rs.getString(3);
-			 String projectId = rs.getString(4);
-			 String createdBy = rs.getString(5);
-			 Date openDate = rs.getDate(6);
-			 String assignedTo = rs.getString(7);
-			 String closedBy = rs.getString(9);
 			 String bugStatus = rs.getString(10);
 			 String severityLevel = rs.getString(11);
+			 boolean markedForClosing= rs.getBoolean(8);
+			 System.out.println("the markeforclosing is: "+markedForClosing);
+			 String message;
+			 if(markedForClosing)
+			 {
+				 
+				 message="yes";
+			 }
+			 else
+			 {
+				
+
+				 message="no";
+			 }
+			 Bugs bugObj = new Bugs(bugTitle,bugStatus,severityLevel,bugDesc,bugid,message);
 			 
-			 Bugs bugObj = new Bugs();
 			 bugsList.add(bugObj);
 		 }
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return bugsList;
 		
 	}

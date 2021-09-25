@@ -1,7 +1,9 @@
 package com.hsbc.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.hsbc.beans.Bugs;
 import com.hsbc.beans.Users;
 import com.hsbc.dao.ProjectDetailsDao;
 import com.hsbc.dao.ProjectDetailsDaoIntf;
@@ -23,6 +25,12 @@ public ProjectDetailsService()
 		// TODO Auto-generated method stub
 		String str= dao.getStartDate(projectName);
 		return str;
+	}
+	@Override
+	public ArrayList<Bugs> fetchBugsList(String projectName) {
+		// TODO Auto-generated method stub
+		ArrayList<Bugs> bugsList= dao.getProjectBugsList(projectName);
+		return bugsList;
 	}
 
 }

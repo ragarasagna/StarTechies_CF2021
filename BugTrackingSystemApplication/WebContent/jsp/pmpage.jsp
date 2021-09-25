@@ -46,7 +46,7 @@
                                                         class="fas fa-project-diagram"></i> New Project</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
-                                                <a class="btn btn-warning" href="../jsp/pmdisplayproject.jsp" role="button"><i
+                                                <a class="btn btn-warning" href="../jsp/ProjectsServlet/Details" role="button"><i
                                                         class="fas fa-tasks"></i> Project Details</a>
                                             </li>&nbsp;&nbsp;&nbsp;
                                             <li class="nav-item">
@@ -67,12 +67,12 @@
                             <h1 align="center">Profile</h1>
                             <hr>
                             <label for="email"><b>Email</b></label>
-                            <p><%=request.getAttribute("emailId") %></p>
+                            <p><%=session.getAttribute("emailId") %></p>
 
                             <label for="role"><b>Role</b></label>
-                            <p><%=request.getAttribute("role") %></p>
+                            <p><%=session.getAttribute("role") %></p>
                             <label for="lastlogin"><b>Last Login</b></label>
-                            <p><%=request.getAttribute("last_login") %></p>
+                            <p><%=session.getAttribute("last_login") %></p>
 
                         </div>
 

@@ -21,16 +21,16 @@ import com.hsbc.util.JDBCUtility;
 public class ImportUsersDao implements ImportUsersDaoIntf {
 
 	@Override
-	public void readFile(String s) {
-		System.out.println(s);
+	public void readFile() throws  UploadNotSuccessfulException{
+	//	System.out.println(s);
 		// TODO Auto-generated method stub
 		try {
 			Connection con=JDBCUtility.getConnection();
 			
 			FileReader reader;
 			
-				reader = new FileReader(s);
-			System.out.println(s);
+				reader = new FileReader("C:\\jsonfile\\users.json");
+			//System.out.println(s);
 			Object obj=null;
 			
 				try {

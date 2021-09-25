@@ -1,19 +1,16 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@page import="java.util.List" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+        <%@page import="java.util.List" %>
+            <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
-    
-    
-    <!DOCTYPE html>
-<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/ptdstyle.css" />
+    <!--link rel="stylesheet" href="../css/ptdstyle.css" /-->
+    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/display.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -21,22 +18,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>  
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Manager Page</title>
-    
+    <title>Tester Page</title>
 </head>
 
-<body>
-<%@page import="java.util.*, com.hsbc.beans.Project"%>
-	<%
-		List<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
-		pageContext.setAttribute("projects", projects);
-	    
-		%>
+<body >
+
+
+<%@page import="java.util.*, com.hsbc.beans.Users, com.hsbc.beans.Bugs"%>
+<%
+	ArrayList<Bugs> buglist = (ArrayList<Bugs>) request.getAttribute("testerbuglist");
+	pageContext.setAttribute("buglist", buglist);
+
+%>
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -49,16 +43,19 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/pmpage.html" role="button"><i
+                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/newproject.jsp" role="button"><i
-                                        class="fas fa-project-diagram"></i> New Project</a>
+                                <a class="btn btn-warning" href="testerbugs.html" role="button"><i
+                                        class="fas fa-tasks"></i> Projects</a>
                             </li>&nbsp;&nbsp;&nbsp;
-                         
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/home.jsp" role="button"><i
+                                <a class="btn btn-warning" href="treportbug.html" role="button"><i
+                                        class="fas fa-spider"></i> Report Bugs</a>
+                            </li>&nbsp;&nbsp;&nbsp;
+                            <li class="nav-item">
+                                <a class="btn btn-warning" href="home.html" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>
@@ -69,34 +66,35 @@
             </div>
         </nav>
     </section>                                
-    <br>
+    <br><br><br>
     <form>
         <div class="container">
-            <h2 align="center">Projects</h2>
+            <h2 align="center">Project Details</h2>
             <hr>
 
-            <table align="center" cellpadding="2" width="100%">
+            <table align="center" cellpadding="5" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
-                  <th>Project Name</th>
-                </tr>
-                 <c:forEach items="${projects}" var="project">
-                 <tr align="center">
-                 <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>
-                 </tr>
-                 </c:forEach>
-                  
-                    <!--  <td><a href="/BugTrackingSystemApplication/ProjectDetailsServlet/p01">p01</a></td>-->
                
-                </table>
+                <th>Project Name</th>
+                <th>Bug Name</th>
+                <th>Description</th>
+                <th>Severity Level</th>
+                </tr>
                 
-                 
-                 
-                 
+                <c:forEach items="${buglist}" var="bug">
+					<tr align="center">
+						<td>${bug.projectName }</td>
+						<td>${bug.bugTitle }</td>
+						<td>${bug.bugDesc }</td>
+						<td>${bug.severityLevel }</td>
+					</tr>
+				</c:forEach>
+                </table>
         </div>
 
     </form>
 
-        
+<br><br>
     <footer class="container-fluid text-center">
         <p><i class="fa fa-copyright"></i>All Rights Reserved </p>
     </footer>

@@ -1,7 +1,8 @@
+@charset "ISO-8859-1";
 body {
         background-image: url('../images/bg.jpg');
         background-repeat: no-repeat;
-        /*background-attachment: fixed;*/
+        
         background-size: cover;
         }
 
@@ -38,8 +39,8 @@ body {
 }
 form {
         border: 2px solid black;
-        width: 60%;
-        padding: 60px;
+        width: 65%;
+        padding: 30px;
         margin: auto;
         font-size:large;
         }
@@ -47,7 +48,7 @@ form {
         /* Full-width input fields */
 input[type=text],
 input[type=password] {
-            width: 100%;
+            width: 60%;
             padding: 10px;
             margin: 5px 0 22px 0;
             display: inline-block;
@@ -56,29 +57,49 @@ input[type=password] {
         }
 
         /* Set a style for the submit button */
-        .teambtn {
-            background-color: black;
-            color: white;
-            padding: 16px 15px;
-            margin: 7px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
+.teambtn {
+        background-color: black;
+        color: white;
+        padding: 16px 15px;
+        margin-left: 32%;
+        border: none;
+        cursor: pointer;
+        width: 30%;
+        opacity: 0.9;
             
         }
 
-        .teambtn:hover {
-            opacity: 1;
+.teambtn:hover {
+        opacity: 1;
         }
 
-        footer {
-            /*background-color: #d30909;*/
-            background-image: linear-gradient(to left, red, rgb(136, 48, 48));
-            color: white;
-            padding: 10px;
-            position: fixed;
-            margin-top: auto;
-            width: 100%;
-            bottom: 0;
+footer {
+        /*background-color: #d30909;*/
+        background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+        color: white;
+        padding: 10px;
+        margin-top:auto; 
+        width: 100%;
+        bottom: 0;
         }
+
+.devTeam{
+        color:black;
+        width: 100%;
+        background-color: #f1f1f1;
+         padding-left: 10px;
+          padding-bottom: 10px;
+           padding-top: 10px;
+        column-count: 3;
+        
+}
+
+.testerTeam{
+        color:black;
+        background-color: #f1f1f1;
+        width: 100%;
+         padding-left: 10px;
+          padding-bottom: 10px;
+           padding-top: 10px;
+        column-count: 3;
+}

@@ -62,9 +62,10 @@ public class Loginservlet extends HttpServlet {
 	            HttpSession session = req.getSession(); //Creating a session
 	            String seshId = session.getId();
 	            session.setAttribute("session_id",seshId);
-	            req.setAttribute("emailId", emailId);
-	            req.setAttribute("last_login", dateStr);
-	            req.setAttribute("role", "ProjectManager");
+	            session.setAttribute("emailId", emailId);
+	          
+	            session.setAttribute("last_login", dateStr);
+	            session.setAttribute("role", "ProjectManager");
 	            req.getRequestDispatcher("../jsp/pmpage.jsp").forward(req, resp);
 	        }
 	        else if(userValidate.equals("Developer"))
@@ -93,6 +94,7 @@ public class Loginservlet extends HttpServlet {
 	            HttpSession session = req.getSession();
 	            String seshId = session.getId();
 	            session.setAttribute("session_id",seshId);
+	            session.setAttribute("emailId", emailId);
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "Developer");
@@ -122,6 +124,7 @@ public class Loginservlet extends HttpServlet {
 	            HttpSession session = req.getSession();
 	            String seshId = session.getId();
 	            session.setAttribute("session_id",seshId);
+	            session.setAttribute("emailId", emailId);
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "Tester");
