@@ -1,0 +1,76 @@
+@charset "ISO-8859-1";
+body {
+        background-image: url('../images/bg.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+
+#nav-bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        }
+
+.navbar {
+        background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+        padding: 0 !important;
+        height:90px;
+        font-family: 'Amatic SC', cursive;
+        }
+
+.navbar-brand {
+        font-family:'Amatic SC', cursive;
+        color: #fff!important;
+        font-size: 50px;
+        font-weight: bolder;
+        }
+
+.navbar-brand i{
+        color:black;
+        font-size: 50px;
+}
+.navbar ul{
+        font-family: sans-serif;
+}
+form
+ {
+    border: 3px solid black;
+    width:30%;
+    padding: 15px;
+    margin: auto;
+    font:small;	
+}
+/* Full-width input fields */
+input[type=password],#email {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 2px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+/* Set a style for the submit button */
+.loginbtn {
+  background-color: black;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:100%;
+  opacity: 0.9;
+}
+
+.loginbtn:hover {
+  opacity: 1;
+}
+footer {
+            /*background-color: #d30909;*/
+            background-image: linear-gradient(to left, red, rgb(136, 48, 48));
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }

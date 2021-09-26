@@ -1,5 +1,7 @@
 package com.hsbc.dao;
 
-public interface RegsitrationDaoIntf {
+import com.hsbc.beans.Users;
 
+public interface RegsitrationDaoIntf {
+	String registerUser(Users user);
 }
