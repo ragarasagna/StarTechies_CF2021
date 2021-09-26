@@ -15,8 +15,7 @@ import com.hsbc.beans.Bugs;
 import com.hsbc.beans.Project;
 import com.hsbc.business.BugOperationsService;
 import com.hsbc.business.BugOperationsServiceIntf;
-import com.hsbc.business.CloseBugService;
-import com.hsbc.business.CloseBugServiceIntf;
+
 import com.hsbc.business.ProjectOperationsService;
 import com.hsbc.business.ProjectOperationsServiceIntf;
 

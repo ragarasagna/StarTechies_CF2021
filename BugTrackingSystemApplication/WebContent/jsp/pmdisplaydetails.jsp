@@ -191,16 +191,14 @@
 						<td>${bug.bugStatus }</td>
 						<td>${bug.markedForClosing}</td>
 
-						<!--	<td><select name="devName" >
+							<td><select name="devName" >
 						<option value="" selected>Selected</option>
 								<c:forEach items="${devlist}" var="developer">
 									<option value="${developer.userName}">${developer.userName}</option>
 								</c:forEach>
 						</select></td>
-						-->
-						<td><c:forEach items="${devlist}" var="developer">
-								<input type="radio" name="devName" value="${developer.userName}" />${developer.userName}
-								</c:forEach></td>
+						
+						
 						<c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
 							<td><input type="button" value="Assign"
 								onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'"></td>

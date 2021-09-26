@@ -7,7 +7,7 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="../css/homepagestyle.css" type="text/css">
+                <link rel="stylesheet" href="/BugTrackingSystemApplication/css/homepagestyle.css" type="text/css">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
                 </section>
                 <section id="content">
                     <div class="card bg-dark text-white">
-                        <img src="../images/finalbg.jpg" class="card-img" alt="...">
+                        <img src="/BugTrackingSystemApplication/jsp/images/finalbg.jpg" class="card-img" alt="...">
                         <div class="card-img-overlay">
                             <h4 class="card-title"><b><i>"Never allow the same bug to bite you twice </i>"</b>-Steve
                                 Maguire</h4><br>

@@ -18,10 +18,7 @@ import com.hsbc.beans.Project;
 import com.hsbc.beans.Users;
 import com.hsbc.business.BugOperationsService;
 import com.hsbc.business.BugOperationsServiceIntf;
-import com.hsbc.business.NewProjectService;
-import com.hsbc.business.NewProjectServiceIntf;
-import com.hsbc.business.ProjectDetailsService;
-import com.hsbc.business.ProjectDetailsServiceIntf;
+
 import com.hsbc.business.ProjectOperationsService;
 import com.hsbc.business.ProjectOperationsServiceIntf;
 import com.hsbc.dao.BugModelDao;
