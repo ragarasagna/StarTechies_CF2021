@@ -58,15 +58,15 @@ A new user needs to register themselves with their email id  and role,post which
 The import users is used by the admin to include details of the users.
 If the user is already registered he/she can directly login.
 
-The project manager can perform a set of operations:
+###### The project manager can perform a set of operations:
 
    a.Create new project and add members to the team.   
    b.Assign reported bugs to the developers
    c.Can manage the previously assigned projects and bug status.
 
-The Tester can open a project assigned to him and click on report new bug.This will pass all the details of the bug to the Project Manager.
+###### The Tester can open a project assigned to him and click on report new bug.This will pass all the details of the bug to the Project Manager.
 
-The Developer can open the Bug assigned ,resolve it and mark the status of the Bug as completed                   
+###### The Developer can open the Bug assigned ,resolve it and mark the status of the Bug as completed                   
 
 ## Contributers:
 Gautami S Nair
