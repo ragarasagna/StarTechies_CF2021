@@ -77,7 +77,7 @@ Gaurav Pandey
 
 Chaitanya Ashtekar
 
-Raga Rasagna P
+Raga Rasagna Paruchuri
 
 Vandana Bora
 
