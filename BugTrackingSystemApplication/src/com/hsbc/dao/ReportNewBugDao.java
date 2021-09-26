@@ -97,6 +97,8 @@ public class ReportNewBugDao implements ReportNewBugDaoIntf{
 	@Override
 	public ArrayList<String> fetchProjects() {
 		// TODO Auto-generated method stub
+		//get projects for tester
+		
 		return null;
 	}
 }

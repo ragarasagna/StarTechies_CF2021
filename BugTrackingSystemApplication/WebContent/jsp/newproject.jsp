@@ -7,7 +7,7 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="../css/newprojectstyle.css" />
+                <link rel="stylesheet" href="/BugTrackingSystemApplication/css/newprojectstyle.css" />
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -21,6 +21,14 @@
             </head>
 
             <body>
+           <%@page import="java.util.*, com.hsbc.beans.Users, com.hsbc.beans.Bugs"%>
+	<%
+		ArrayList<Users> developers = (ArrayList<Users>) request.getAttribute("developers");
+		pageContext.setAttribute("developers",developers);
+		ArrayList<String> testers = (ArrayList<String>) request.getAttribute("testers");
+		pageContext.setAttribute("testers",testers);
+		
+		%>
                 <section id="nav-bar">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
@@ -60,7 +68,7 @@
                     </nav>
                 </section>
                 <br>
-                <form action="../jsp/CreateNewProjectServlet" method="POST">
+                <form action="/BugTrackingSystemApplication/jsp/ProjectsServlet/" method="POST">
                     <div class="container">
                         <b>
                             <h3 align="center">Create New Project</h3>
@@ -84,7 +92,7 @@
                         <b>Select developers</b>
                         <br>
                         <div class="devTeam">
-                            <c:forEach items="${sessionScope.developers}" var="user">
+                            <c:forEach items="${developers}" var="user">
                                 <input type="checkbox" name="teamMembers" value="${user.userName}" />${user.userName}
                                 <br>
                             </c:forEach>
@@ -94,7 +102,7 @@
                         <b>Select Tester</b>
                         <br>
                         <div class="testerTeam">
-                            <c:forEach items="${sessionScope.testers}" var="user">
+                            <c:forEach items="${testers}" var="user">
                                 <input type="radio" name="teamMembers" value="${user}" />${user}
                                 <br>
                             </c:forEach>

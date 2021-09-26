@@ -1,5 +1,5 @@
 body {
-        background-image: url('../images/bg.jpg');
+        background-image: url('/BugTrackingSystemApplication/jsp/images/bg.jpg');
         background-repeat: no-repeat;
         /*background-attachment: fixed;*/
         background-size: cover;
@@ -38,11 +38,16 @@ body {
 }
 form {
         border: 2px solid black;
-        width: 60%;
+        width: 80%;
         padding: 60px;
         margin: auto;
         font-size:large;
         }
+table {
+	text-align:center;
+	width:70x;
+	cell-padding:20;
+}        
 
         /* Full-width input fields */
 input[type=text],

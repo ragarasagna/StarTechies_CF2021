@@ -1,5 +1,4 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-\
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -14,7 +13,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!--link rel="stylesheet" href="../css/ptdstyle.css" /-->
-<link rel="stylesheet" href="/BugTrackingSystemApplication/css/display.css" />
+<link rel="stylesheet"
+	href="/BugTrackingSystemApplication/css/display.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -33,7 +33,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="../js/statusupdate.js"></script>
+<script src="../js/statusupdate.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
@@ -48,16 +48,18 @@
 	<%
 		ArrayList<Users> users = (ArrayList<Users>) request.getAttribute("team");
 		pageContext.setAttribute("team", users);
-		ArrayList<Bugs> bugs= (ArrayList<Bugs>)request.getAttribute("bugslist");
+		ArrayList<Bugs> bugs = (ArrayList<Bugs>) request.getAttribute("bugslist");
 		pageContext.setAttribute("bugslist", bugs);
-		
-		String projectName=(String)request.getAttribute("projectname");
+
+		ArrayList<Users> devlist = (ArrayList<Users>) request.getAttribute("developerList");
+		pageContext.setAttribute("devlist", devlist);
+
+		String projectName = (String) request.getAttribute("projectname");
 		pageContext.setAttribute("projectName", projectName);
-		HttpSession session1= request.getSession();
+		HttpSession session1 = request.getSession();
 		session1.setAttribute("projectname", projectName);
-		String managerName=(String)request.getAttribute("managername");
+		String managerName = (String) request.getAttribute("managername");
 		pageContext.setAttribute("managerName", managerName);
-	    
 	%>
 	<section id="nav-bar">
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -74,17 +76,18 @@
 					<div class="collapse navbar-collapse" id="navbarText">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item"><a class="btn btn-warning"
-								href="/BugTrackingSystemApplication/jsp/pmpage.jsp" role="button"><i class="fas fa-user"></i>
-									Profile</a></li>&nbsp;&nbsp;&nbsp;
+								href="/BugTrackingSystemApplication/jsp/pmpage.jsp"
+								role="button"><i class="fas fa-user"></i> Profile</a></li>&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a class="btn btn-warning"
-								href="../jsp/newproject.jsp" role="button"><i
-									class="fas fa-project-diagram"></i> New Project</a></li>&nbsp;&nbsp;&nbsp;
+								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/NewProject"
+								role="button"><i class="fas fa-project-diagram"></i> New
+									Project</a></li>&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a class="btn btn-warning"
-								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details" role="button"><i
-									class="fas fa-tasks"></i> Project Lists</a></li>&nbsp;&nbsp;&nbsp;
+								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details"
+								role="button"><i class="fas fa-tasks"></i> Project Lists</a></li>&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a class="btn btn-warning"
-								href="../jsp/home.jsp" role="button"><i
-									class="fas fa-sign-out-alt"></i> Logout</a>
+								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut"
+								role="button"><i class="fas fa-sign-out-alt"></i> Logout</a>
 								</button></li>
 						</ul>
 					</div>
@@ -94,7 +97,7 @@
 		</nav>
 	</section>
 	<br>
-	<form action="../jsp/CloseBugServlet">
+	<form>
 		<div class="container">
 			<h1 align="center">Project Details</h1>
 			<hr>
@@ -138,7 +141,7 @@
 
 
 
-			<table align="center" cellpadding="2" width="100%">
+			<table>
 				<tr bgcolor="black" class="whitetext" align="center"
 					style="color: white">
 					<!--td>Bug ID</td-->
@@ -175,8 +178,10 @@
 					<th>Description</th>
 					<th>Present status</th>
 					<th>marked for closing</th>
-					<th>Assign Developers</th>
-					<th>Close</th>
+					<th>Developers</th>
+					<th>Assign</th>
+					<th>Close&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+
 				</tr>
 				<c:forEach items="${bugslist}" var="bug">
 					<tr>
@@ -185,31 +190,43 @@
 						<td>${bug.bugDesc }</td>
 						<td>${bug.bugStatus }</td>
 						<td>${bug.markedForClosing}</td>
-	                    <td></td>
-						
-						
-					<c:if test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
-					<td><!-- <a href="/BugTrackingSystemApplication/CloseBugServlet/${bug.bugId}">Close</a>-->
-					<input type="submit" name="close" value="close" >
-					<!--  ons="updateStatus('${bug.bugId}','<%=request.getAttribute("projectname")%>')">-->
-					</td>
-					</c:if>
-						
-						
-							
-					
-						
+
+						<!--	<td><select name="devName" >
+						<option value="" selected>Selected</option>
+								<c:forEach items="${devlist}" var="developer">
+									<option value="${developer.userName}">${developer.userName}</option>
+								</c:forEach>
+						</select></td>
+						-->
+						<td><c:forEach items="${devlist}" var="developer">
+								<input type="radio" name="devName" value="${developer.userName}" />${developer.userName}
+								</c:forEach></td>
+						<c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
+							<td><input type="button" value="Assign"
+								onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'"></td>
+						</c:if>
+
+						<c:if
+							test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
+							<td>
+								<!-- <a href="/BugTrackingSystemApplication/CloseBugServlet/${bug.bugId}">Close</a>-->
+								<!-- <input type="submit" name="close" value="close" >--> <input
+								type="button" value="close"
+								onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${projectName}/close/${bug.bugId }'" />
+								<!--  ons="updateStatus('${bug.bugId}','<%=request.getAttribute("projectname")%>')">-->
+							</td>
+						</c:if>
 
 					</tr>
 				</c:forEach>
 			</table>
 
 		</div>
-<input type="hidden" name="managername" value=" ${managername}"></input>
+		<input type="hidden" name="managername" value=" ${managername}"></input>
 	</form>
-<br>
-<br>
-<br>
+	<br>
+	<br>
+	<br>
 
 	<footer class="container-fluid text-center">
 		<p>

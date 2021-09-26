@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link rel="stylesheet" href="../css/ptdstyle.css" />
+    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/ptdstyle.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -21,6 +21,12 @@
 </head>
 
 <body >
+<%@page import="java.util.*, com.hsbc.beans.Project"%>
+	<%
+		List<Project> projects = (ArrayList<Project>)request.getAttribute("testerprojects");
+		pageContext.setAttribute("projects", projects);
+	    
+		%>
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -37,12 +43,8 @@
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerbugs.html" role="button"><i
+                                <a class="btn btn-warning" href=""/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported"" role="button"><i
                                         class="fas fa-tasks"></i> Projects</a>
-                            </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="reportbug.html" role="button"><i
-                                        class="fas fa-spider"></i> Report Bugs</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="home.html" role="button"><i
@@ -56,8 +58,8 @@
             </div>
         </nav>
     </section>                                
-    <br>
-    <form>
+    <br><br><br>
+    <form action="/BugTrackingSystemApplication/jsp/BugsServlet/" method="POST">
         <div class="container">
             <h2 align="center">Report Bugs</h2>
             <hr>
@@ -65,9 +67,11 @@
             <!--input type="text" placeholder="Enter name" name="pname" id="pname" required-->
             <select name="pname" id="pname">
                 <option>Select Project Name</option>
-                <option>P1</option>
-                <option>P2</option>
+               
+                <c:forEach items="${projects}" var="projects">
+                 <option>${projects.projectName}</option>
                 
+                </c:forEach>
             </select>
             <br><br>
 
@@ -87,10 +91,11 @@
                 </select>
             <hr>
 
-            <button type="submit" class="teambtn" align="center">Submit</button>
+            <button type="submit" class="teambtn" align="center" >Submit</button>
         </div>
 
     </form>
+    <br><br><br><br><br>
 
         
     <footer class="container-fluid text-center">

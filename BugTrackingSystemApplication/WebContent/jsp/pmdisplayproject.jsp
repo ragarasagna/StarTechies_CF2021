@@ -53,12 +53,12 @@
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/newproject.jsp" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/NewProject" role="button"><i
                                         class="fas fa-project-diagram"></i> New Project</a>
                             </li>&nbsp;&nbsp;&nbsp;
                          
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/home.jsp" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>

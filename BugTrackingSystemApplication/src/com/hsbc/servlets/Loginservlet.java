@@ -63,7 +63,7 @@ public class Loginservlet extends HttpServlet {
 	            String seshId = session.getId();
 	            session.setAttribute("session_id",seshId);
 	            session.setAttribute("emailId", emailId);
-	          
+	          System.out.println("session after login:"+seshId);
 	            session.setAttribute("last_login", dateStr);
 	            session.setAttribute("role", "ProjectManager");
 	            req.getRequestDispatcher("../jsp/pmpage.jsp").forward(req, resp);
@@ -97,6 +97,7 @@ public class Loginservlet extends HttpServlet {
 	            session.setAttribute("emailId", emailId);
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
+	        
 	            req.setAttribute("role", "Developer");
 
 	 

@@ -40,7 +40,7 @@
                                         class="fas fa-tasks"></i> Projects</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/ReportNewBug" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/ReportNewBug" role="button"><i
                                         class="fas fa-spider"></i> Report Bugs</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
@@ -62,10 +62,10 @@
             <hr>
 
             <label for="email"><b>Email</b></label>
-            <p> Your Email id is:</p>
+            <p> <%=request.getAttribute("emailId") %></p>
 
             <label for="role"><b>Role</b></label>
-            <p> Your Role is:</p>
+            <p> <%=request.getAttribute("role") %></p>
 
         </div>
 
