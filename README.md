@@ -60,9 +60,9 @@ If the user is already registered he/she can directly login.
 
 The project manager can perform a set of operations:
 
-1.Create new project and add members to the team.   
-2.Assign reported bugs to the developers
-3.Can manage the previously assigned projects and bug status.
+   a.Create new project and add members to the team.   
+   b.Assign reported bugs to the developers
+   c.Can manage the previously assigned projects and bug status.
 
 The Tester can open a project assigned to him and click on report new bug.This will pass all the details of the bug to the Project Manager.
 
