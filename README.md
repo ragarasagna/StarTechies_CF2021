@@ -4,7 +4,7 @@ The project is an online bug tracking system for projects. The application allow
 
 
 ## Requirements:
-List of dependencies that are needed to run our system
+List of dependencies that are needed to run the project on our system:
 
 #### Database: MySQL:
 
