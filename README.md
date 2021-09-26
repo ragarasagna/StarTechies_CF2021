@@ -6,11 +6,11 @@ The project is an online bug tracking system for projects.The application allows
 ## Requirements:
  List of dependencies that is needed in able to run our library
 
-Database:MySQL:
+### Database:MySQL:
 
-        This is needed to store all the data collected from the user as well as the data that is required to run the application.Their are four database  designed altogether.Firstly for the users i.e Project Manager,Developer,Testers.Secondly, we have a database of the projects.Thirdly,a database is maintained for the team formed by the project manager and Lastly a database of bugs.
+This is needed to store all the data collected from the user as well as the data that is required to run the application.Their are four database  designed altogether.Firstly for the users i.e Project Manager,Developer,Testers.Secondly, we have a database of the projects.Thirdly,a database is maintained for the team formed by the project manager and Lastly a database of bugs.
 ```Download MySql from https://dev.mysql.com/downloads/
-
+```
  
 JAVA version 1.8 and above:
 
