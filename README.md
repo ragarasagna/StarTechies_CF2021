@@ -1,5 +1,5 @@
 # StarTechies_CF2021
-##BUG TRACKING SYSTEM
+## BUG TRACKING SYSTEM
 The project is an online bug tracking system for projects.The application allows software testers to report bugs for a project,project manager to view all bugs,assign bugs to developers and developers to update the bug status.
 
 
