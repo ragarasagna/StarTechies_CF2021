@@ -1,9 +1,9 @@
 # StarTechies_CF2021
-BUG TRACKING SYSTEM
+##BUG TRACKING SYSTEM
 The project is an online bug tracking system for projects.The application allows software testers to report bugs for a project,project manager to view all bugs,assign bugs to developers and developers to update the bug status.
 
 
-Requirements:
+##Requirements:
  List of dependencies that is needed in able to run our library
 
 Database:MySQL:
@@ -32,14 +32,14 @@ Download Eclipse from https://www.eclipse.org/downloads/packages/installer
 
 Apache Tomcat version 8 and above
   
-Tomcat is a web server (can handle HTTP requests/responses) and web container implements Java Servlet API.
+     Tomcat is a web server (can handle HTTP requests/responses) and web container implements Java Servlet API.
 Any version above version 8 is best for running the HTTP page.
 It can be downloaded from https://tomcat.apache.org/download-80.cgi
      
 
 
 
-Installation:
+##Installation:
  step by step instruction on how to install your library….…..
 
 Step1:   Configure a connection stream into a database
@@ -48,7 +48,7 @@ Step 2:Run the SQL file attached in the repository in your local system.
 
 Step3:Create folder in C or D drive which will contain the JSON file.
 
-Usage:
+##Usage:
 The homepage contains three options 
 1.Import Users  
 2.Register  
@@ -68,7 +68,7 @@ The Tester can open a project assigned to him and click on report new bug.This w
 
 The Developer can open the Bug assigned ,resolve it and mark the status of the Bug as completed                   
 
-Contributers:
+##Contributers:
 Gautami S Nair
 Anindya Singhmar
 Gaurav Pandey
