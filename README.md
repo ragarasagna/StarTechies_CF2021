@@ -38,7 +38,10 @@ Download Tomcat from https://tomcat.apache.org/download-80.cgi
 
 1. https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload/1.3
 2. https://jar-download.com/artifacts/com.jfinal/cos/2020.4
-
+3. https://jar-download.com/artifacts/org.mindrot/jbcrypt/0.3m/source-code
+4. https://mvnrepository.com/artifact/javax.servlet/jstl/1.2
+5. https://jar-download.com/artifacts/mysql/mysql-connector-java/8.0.11/source-code
+6. http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm
 
 
 ## Installation:
