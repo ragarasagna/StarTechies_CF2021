@@ -70,12 +70,21 @@ The Developer can open the Bug assigned ,resolve it and mark the status of the B
 
 ## Contributers:
 Gautami S Nair
+
 Anindya Singhmar
+
 Gaurav Pandey
+
 Chaitanya Ashtekar
+
 Raga Rasagna P
+
 Vandana Bora
+
 Lokinendi Sai Harshita
+
 Anuraag Ajaykummar
+
 Mounika Kalakonda
+
 Avirupa Saha
