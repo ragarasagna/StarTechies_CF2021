@@ -37,6 +37,7 @@ Download Tomcat from https://tomcat.apache.org/download-80.cgi
 #### Required JAR files:
 
 1. https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload/1.3
+2. https://jar-download.com/artifacts/com.jfinal/cos/2020.4
 
 
 
