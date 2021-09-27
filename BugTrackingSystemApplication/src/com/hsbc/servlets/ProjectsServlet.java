@@ -222,7 +222,12 @@ public class ProjectsServlet extends HttpServlet {
 					retrieveProject(request, response, session);
 				}
 
-			} else if (arr[0].equals("LogOut")) {
+			}
+			else if(arr[0].equals("TesterBugDetails"))
+			{
+				
+			}
+			else if (arr[0].equals("LogOut")) {
 				System.out.println("In logout called");
 				logOutSession(request, response, session);
 			}

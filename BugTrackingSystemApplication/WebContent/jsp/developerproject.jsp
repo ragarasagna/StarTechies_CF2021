@@ -66,7 +66,7 @@ pageContext.setAttribute("bugs", bugslist);
                                         class="fas fa-spider"></i> Project Assigned</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>

@@ -27,7 +27,7 @@ public class ImportUsersServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		InputStream is = request.getInputStream();
 
-		File file = new File("C:\\jsonfile\\users.json");
+		File file = new File("C:\\importusers\\users.json");
 		FileOutputStream os = new FileOutputStream(file);
 		int read;
 		int fileSize = is.available();

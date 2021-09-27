@@ -69,6 +69,10 @@ public class BugsServlet extends HttpServlet {
 			} else if (arr[0].equals("BugsReported")) {
 				fetchBugDetails(request, response, session);
 			}
+			/*else if(arr[0].equals("TesterBugDetails"))
+			{
+				fetchBugDetails(request, response, session);
+			}*/
 			if (arr.length > 2) {
 				if (arr[1].equals("AssignBug")) {
 					System.out.println("inside assign bug");
@@ -77,9 +81,10 @@ public class BugsServlet extends HttpServlet {
 					assignBug(request, response, session, bugId,projectName);
 				}
 			}
-
+		
 			else if (arr[0].isEmpty()) {
-				response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported" + projectName);
+			
+				response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported/" + projectName);
 			}
 			else {
 				System.out.println("inside dopget ccccccccccccccccccccccccccc");

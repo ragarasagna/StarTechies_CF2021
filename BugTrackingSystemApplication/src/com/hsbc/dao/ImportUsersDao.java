@@ -29,7 +29,7 @@ public class ImportUsersDao implements ImportUsersDaoIntf {
 			
 			FileReader reader;
 			
-				reader = new FileReader("C:\\jsonfile\\users.json");
+				reader = new FileReader("C:\\importusers\\users.json");
 			//System.out.println(s);
 			Object obj=null;
 			
