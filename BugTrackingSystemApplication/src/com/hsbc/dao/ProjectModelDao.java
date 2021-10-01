@@ -138,6 +138,9 @@ Project project=null;
 
 			else {
 				message = "Project added successfully!";
+				System.out.println(message);
+System.out.println("emailid of project manager is: "+ emailId);
+System.out.println("projectId of the created project is "+p.getProjectId());
 				teamresult = save(emailId, p.getProjectId());// update team table
 				updateProjectCounter(emailId, con);
 			}
@@ -153,14 +156,14 @@ Project project=null;
 	public int save(String emailId, String projectId) {
 		int teamresult = 0;
 		try {
-			String rolequery = "select role,user_id from Users where emailId=?;";
+			String rolequery = "select role,user_id from Users where email_id=?;";
 			PreparedStatement rstmt = con.prepareStatement(rolequery);
 			rstmt.setString(1, emailId);
 			ResultSet res = rstmt.executeQuery();
 			String role = null, userId = null;
 			while (res.next()) {
 				role = res.getString("role");
-				userId = res.getString("userId");
+				userId = res.getString("user_id");
 			}
 			String teamquery = "insert into team(user_id,project_id,role) values (?,?,?);";
 			PreparedStatement tstmt;
@@ -333,13 +336,14 @@ Project project=null;
 	public List<Users> fetchDevelopers() {
 
 		List<Users> devlist = new ArrayList<Users>();
-		String query = "select * from users where role='Developer' and project_counter";
+		String query = "select * from users where role='Developer' and project_counter=?";
 
 		Connection con = null;
 		try {
 			con = JDBCUtility.getConnection();
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(query);
+			stmt.setInt(1, 0);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
 				Users user = new Users();

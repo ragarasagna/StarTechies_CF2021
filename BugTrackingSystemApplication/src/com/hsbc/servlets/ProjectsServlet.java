@@ -288,7 +288,7 @@ public class ProjectsServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String emailId = (String) session.getAttribute("email_Id");
+		String emailId = (String) session.getAttribute("emailId");
 		Project project = new Project();
 
 		project.setProjectName(request.getParameter("pname"));
