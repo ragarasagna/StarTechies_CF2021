@@ -8,22 +8,24 @@ import com.hsbc.dao.BugModelDao;
 import com.hsbc.dao.BugModelDaoIntf;
 import com.hsbc.exceptions.BugNotReportedException;
 
-public class BugOperationsService implements BugOperationsServiceIntf{
+public class BugOperationsService implements BugOperationsServiceIntf {
 
 	BugModelDaoIntf bugModel;
+
 	public BugOperationsService() {
-		bugModel= new BugModelDao();
+		bugModel = new BugModelDao();
 	}
+
 	@Override
 	public List<Bugs> testerProjectDetails(String emailId) {
-		
-		List<Bugs> projects= bugModel.testerProjectDetails(emailId);
+
+		List<Bugs> projects = bugModel.testerProjectDetails(emailId);
 		return projects;
 	}
 
 	@Override
 	public ArrayList<Bugs> fetchAssignedBug(String emailId) {
-		ArrayList<Bugs> assignedBug= bugModel.fetchAssignedBug(emailId); 
+		ArrayList<Bugs> assignedBug = bugModel.fetchAssignedBug(emailId);
 		return assignedBug;
 	}
 
@@ -34,7 +36,7 @@ public class BugOperationsService implements BugOperationsServiceIntf{
 
 	@Override
 	public ArrayList<Bugs> DisplayBugs(String projectName) {
-		ArrayList<Bugs> bugsList= bugModel.DisplayBugs(projectName);
+		ArrayList<Bugs> bugsList = bugModel.DisplayBugs(projectName);
 		return bugsList;
 	}
 
@@ -42,22 +44,23 @@ public class BugOperationsService implements BugOperationsServiceIntf{
 	public void closeBug(String bugId, String managerEmailId) {
 		bugModel.closeBug(bugId, managerEmailId);
 	}
+
 	@Override
 	public int reportNewBug(Bugs bug) {
-		
+
 		try {
 			bugModel.reportNewBug(bug);
-			
+
 		} catch (BugNotReportedException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
+
 	@Override
 	public void assignBugToDeveloper(String developerName, String bugId) {
-		// TODO Auto-generated method stub
+
 		bugModel.assignBugToDeveloper(developerName, bugId);
 	}
-	
 
 }

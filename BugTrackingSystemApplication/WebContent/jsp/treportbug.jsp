@@ -59,7 +59,7 @@
         </nav>
     </section>                                
     <br><br><br>
-    <form action="/BugTrackingSystemApplication/jsp/BugsServlet/" method="POST">
+    <form action="/BugTrackingSystemApplication/jsp/BugsServlet/treportbug" method="POST">
         <div class="container">
             <h2 align="center">Report Bugs</h2>
             <hr>

@@ -42,17 +42,14 @@ public class BugsServlet extends HttpServlet {
 		try {
 			request.getRequestDispatcher("/jsp/testerbugs.jsp").forward(request, response);
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String projectName = null;
 		String path = null;
@@ -61,44 +58,35 @@ public class BugsServlet extends HttpServlet {
 		if (request.getPathInfo() != null) {
 			path = request.getPathInfo().substring(1);
 			arr = path.split("/", 5);
-			for (String s : arr) {
-				System.out.println("pathh:" + s);
-			}
-			if (arr[0].equals("ReportNewBug")) {
-				reportNewBug(request, response, session, emailId);
-			} else if (arr[0].equals("BugsReported")) {
-				fetchBugDetails(request, response, session);
-			}
-			/*else if(arr[0].equals("TesterBugDetails"))
-			{
-				fetchBugDetails(request, response, session);
-			}*/
-			if (arr.length > 2) {
-				if (arr[1].equals("AssignBug")) {
-					System.out.println("inside assign bug");
-					String bugId = arr[2];
-					projectName = arr[0];
-					assignBug(request, response, session, bugId,projectName);
-				}
-			}
-		
-			else if (arr[0].isEmpty()) {
-			
-				response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported/" + projectName);
-			}
-			else {
-				System.out.println("inside dopget ccccccccccccccccccccccccccc");
-			}
-		}
 
+		}
+		if (arr[0].equals("ReportNewBug")) {
+			reportNewBug(request, response, session, emailId);
+		} else if (arr[0].equals("BugsReported")) {
+			fetchBugDetails(request, response, session);
+		}
+/*
+		if (arr.length > 2) {
+			if (arr[1].equals("AssignBug")) {
+				System.out.println("inside assign bug");
+				String bugId = arr[2];
+				projectName = arr[0];
+
+			}
+		}*/
+
+		else if (arr[0].isEmpty()) {
+			response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported/" + projectName);
+		} 
 	}
+
 	/* ${projectName}/AssignBug/${bug.bugId } */
 
 	private void assignBug(HttpServletRequest request, HttpServletResponse response, HttpSession session, String bugId,
 			String projectName) {
 
 		String developerName = request.getParameter("devName");
-		System.out.println("Developer name from select:"+developerName);
+		System.out.println("Developer name from select:" + developerName);
 		bugService.assignBugToDeveloper(developerName, bugId);
 		String url = "/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/" + projectName;
 		try {
@@ -130,13 +118,34 @@ public class BugsServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Bugs bug = new Bugs();
-		bug.setProjectName(request.getParameter("pname"));
-		bug.setBugTitle(request.getParameter("bugtitle"));
-		bug.setBugDesc(request.getParameter("descbug"));
-		bug.setSeverityLevel(request.getParameter("severity"));
-		bugService.reportNewBug(bug);
+		HttpSession session = request.getSession();
+		String path = null;
+		String[] arr = null;
+		String projectName = null;
+		
+		
+		if (request.getPathInfo() != null) {
+			path = request.getPathInfo().substring(1);
+			arr = path.split("/", 5);
+		}
+		System.out.println("inside the do post pathhhh:"+path);
+		
+		if (arr[0].equals("treportbug")) {
+			Bugs bug = new Bugs();
+			bug.setProjectName(request.getParameter("pname"));
+			bug.setBugTitle(request.getParameter("bugtitle"));
+			bug.setBugDesc(request.getParameter("descbug"));
+			bug.setSeverityLevel(request.getParameter("severity"));
+			bugService.reportNewBug(bug);
+		} else if (arr[0].equals("pmdisplaydetails")) {
+			projectName = arr[1];
+			String bugId = arr[2];
+			System.out.println("Inside Do post:project name:- " + projectName);
+			System.out.println("Inside Do post:Bug Id:- " + bugId);
+			assignBug(request, response, session, bugId, projectName);
+
+		}
+
 		doGet(request, response);
 	}
 

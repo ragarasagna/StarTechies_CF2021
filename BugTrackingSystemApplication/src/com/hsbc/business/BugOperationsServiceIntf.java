@@ -10,7 +10,7 @@ import com.hsbc.beans.Bugs;
 import com.hsbc.exceptions.BugNotReportedException;
 
 public interface BugOperationsServiceIntf {
-	
+
 	public int reportNewBug(Bugs bug);
 
 	public List<Bugs> testerProjectDetails(String emailId);
@@ -21,8 +21,8 @@ public interface BugOperationsServiceIntf {
 
 	public ArrayList<Bugs> DisplayBugs(String projectName);
 
-	public void closeBug(String bugId, String managerEmailId) ;
-	
+	public void closeBug(String bugId, String managerEmailId);
+
 	public void assignBugToDeveloper(String developerName, String bugId);
 
 }

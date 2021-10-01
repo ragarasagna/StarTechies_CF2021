@@ -169,13 +169,6 @@ public class ProjectsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		HttpSession session= request.getSession();
-//		//ProjectDetailsService Sr= new ProjectDetailsService();
-//	    ProjectModelDao Sr= new ProjectModelDao();
-//		String projectName=null;
-//		/*if (request.getPathInfo() != null) {
-//			projectName = request.getPathInfo().substring(1);
-//		}*/
 		HttpSession session = request.getSession();
 		System.out.println("close value is:" + request.getAttribute("close"));
 		String projectName = null;

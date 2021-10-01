@@ -410,12 +410,14 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 
 		for (String s : projectIds) {
 			try {
-				String testersInSameProjectquery = "select distinct user_id from team where role='Tester' and project_id=?;";
+				//String testersInSameProjectquery = "select distinct user_id from team where role='Tester' and project_id=?;";
+				String testersInSameProjectquery = "select distinct user_name from Users where user_id in(select distinct user_id from team where role='Tester' and project_id=?);";
+
 				PreparedStatement stmt2 = con.prepareStatement(testersInSameProjectquery);
 				stmt2.setString(1, s);
 				ResultSet res2 = stmt2.executeQuery();
 				while (res2.next()) {
-					String testerid = res2.getString("user_id");
+					String testerid = res2.getString("user_name");
 					testers.add(testerid);
 				}
 			} catch (SQLException e) {
@@ -426,12 +428,12 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 			// add to testers list.
 		}
 
-		String testersAvailablequery = "select user_id from Users where role='Tester' and project_counter<2;";
+		String testersAvailablequery = "select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<2);";
 		try {
 			PreparedStatement stmt3 = con.prepareStatement(testersAvailablequery);
 			ResultSet res3 = stmt3.executeQuery();
 			while (res3.next()) {
-				String testerid = res3.getString("user_id");
+				String testerid = res3.getString("user_name");
 				finalTesters.add(testerid);
 			}
 		}
@@ -441,7 +443,26 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 			e.printStackTrace();
 		}
 
+		List<String> availabletesters= new ArrayList<String>();
+		String alltestersavailabe="select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<1);"; 
+		try {
+			PreparedStatement stmt4 = con.prepareStatement(alltestersavailabe);
+			ResultSet res4 = stmt4.executeQuery();
+			while (res4.next()) {
+				String testerid = res4.getString("user_name");
+				availabletesters.add(testerid);
+			}
+		}
+
+		catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 		testers.retainAll(finalTesters);
+		for (String tester : availabletesters){
+			   if (!testers.contains(tester))
+			      testers.add(tester);
+			}
 	
 List<String> team=testers.stream().distinct().collect(Collectors.toList());
 System.out.println("team mebers are dao..."+team);

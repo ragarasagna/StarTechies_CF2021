@@ -12,7 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!--link rel="stylesheet" href="../css/ptdstyle.css" /-->
 <link rel="stylesheet"
 	href="/BugTrackingSystemApplication/css/display.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,15 +131,8 @@
 			</table>
 
 
-
-
-
-
-
 			<br> <label for="bugs"><b>Bugs List</b></label>
-
-
-
+			
 			<table>
 				<tr bgcolor="black" class="whitetext" align="center"
 					style="color: white">
@@ -153,10 +145,7 @@
 							</button>
 
 							<div class="dropdown-menu">
-								<!--a class="dropdown-item" href="#"> Critial </a>  
-                    <a class="dropdown-item" href="#"> Major </a>  
-                    <a class="dropdown-item" href="#"> Minor </a>  
-                    <a class="dropdown-item" href="#"> Trivial </a-->
+								
 								<select class="form-control" size=5>
 									<option value="severerity" align="center">Select
 										Severity</option>
@@ -166,13 +155,7 @@
 									<option value="trivial">Trivial</option>
 								</select>
 							</div>
-						</div> <!--select class="form-control">
-                        <option value="severerity" align="center">Select Severity</option>
-                        <option value="critial">Critial</option>
-                        <option value="major">Major</option>
-                        <option value="minor">Minor</option>
-                        <option value="trivial">Trivial</option>
-                    </select--></th>
+						</div> </th>
 					<th>Severity Level</th>
 
 					<th>Description</th>
@@ -190,30 +173,26 @@
 						<td>${bug.bugDesc }</td>
 						<td>${bug.bugStatus }</td>
 						<td>${bug.markedForClosing}</td>
-
-							<td><select name="devName" >
-						<option value="" selected>Selected</option>
+						
+						<td><select name="devName">
+								<option value="" selected>Selected</option>
 								<c:forEach items="${devlist}" var="developer">
 									<option value="${developer.userName}">${developer.userName}</option>
 								</c:forEach>
 						</select></td>
-						
-						
-						<c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
-							<td><input type="button" value="Assign"
-								onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'"></td>
-						</c:if>
 
-						<c:if
-							test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
-							<td>
-								<!-- <a href="/BugTrackingSystemApplication/CloseBugServlet/${bug.bugId}">Close</a>-->
-								<!-- <input type="submit" name="close" value="close" >--> <input
-								type="button" value="close"
-								onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${projectName}/close/${bug.bugId }'" />
-								<!--  ons="updateStatus('${bug.bugId}','<%=request.getAttribute("projectname")%>')">-->
-							</td>
-						</c:if>
+						<td><c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
+								<!-- <input type="submit" value="Assign">-->
+								  <input type="button" value="Assign"
+									onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'">
+						
+							</c:if></td>
+						<td><c:if
+								test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
+								<input type="button" value="close"
+									onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${projectName}/close/${bug.bugId }'" />
+
+							</c:if></td>
 
 					</tr>
 				</c:forEach>

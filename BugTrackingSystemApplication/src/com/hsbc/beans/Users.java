@@ -2,14 +2,17 @@ package com.hsbc.beans;
 
 import java.sql.Timestamp;
 
-public class Users extends ImportedUsers{
+public class Users extends ImportedUsers {
 	private String password;
 	private Timestamp lastLogin;
 	int projectCounter;
-	public Users() {super();}
-	public Users(String userName,String role)
-	{
-		super(userName,role);
+
+	public Users() {
+		super();
+	}
+
+	public Users(String userName, String role) {
+		super(userName, role);
 	}
 
 	public String getPassword() {
