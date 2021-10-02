@@ -34,13 +34,9 @@ public class BugsServlet extends HttpServlet {
 
 	public void fetchBugDetails(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		// HttpSession session = request.getSession();
 		String emailId = (String) session.getAttribute("emailId");
-		// BugModelDao dao=new BugModelDao();
 		List<Bugs> bugslist = bugService.testerProjectDetails(emailId);
-		System.out.println(bugslist);
 		request.setAttribute("testerbuglist", bugslist);
-		System.out.println("tester bugs: " + bugslist);
 		try {
 			request.getRequestDispatcher("/jsp/testerbugs.jsp").forward(request, response);
 		} catch (ServletException e) {
@@ -82,9 +78,7 @@ public class BugsServlet extends HttpServlet {
 		ProjectModelDao dao = new ProjectModelDao();
 		List<Users> teamDetails = projectService.getTeamMembers(projectName);
 		List<Users> devList = dao.fetchDevelopersByProjectName(projectName);
-		System.out.println("devlist from servlet....." + devList);
 		String emailId = (String) session.getAttribute("emailId");
-		System.out.println("team details: " + teamDetails);
 		String projectManagerName = projectService.getManagerName(projectName);
 		String startDate = projectService.getStartDate(projectName);
 		List<Bugs> bugsList = bugService.DisplayBugs(projectName,severity);
@@ -94,14 +88,11 @@ public class BugsServlet extends HttpServlet {
 		request.setAttribute("team", teamDetails);
 		request.setAttribute("bugslist", bugsList);
 		request.setAttribute("developerList", devList);
-		System.out.println("Inside method" + bugsList);
 		try {
 			request.getRequestDispatcher("/jsp/pmdisplaydetails.jsp").forward(request, response);
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -112,7 +103,6 @@ public class BugsServlet extends HttpServlet {
 			String projectName) {
 
 		String developerName = request.getParameter("devName");
-		System.out.println("Developer name from select:" + developerName);
 		bugService.assignBugToDeveloper(developerName, bugId);
 		String url = "/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/" + projectName;
 		try {
@@ -135,12 +125,10 @@ public class BugsServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	// TODO Auto-generated method stub
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -171,8 +159,6 @@ public class BugsServlet extends HttpServlet {
 		}else if(arr[0].equals("filter")) {
 			projectName = request.getParameter("projectName1");
 			String severity=request.getParameter("filter");
-			System.out.println("Inside Do post:project name:- " + projectName);
-			System.out.println("Inside Do post:severity "+severity);
 			projectDetails(request, response, session, projectName, severity);
 			
 		}

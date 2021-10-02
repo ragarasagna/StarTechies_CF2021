@@ -29,20 +29,7 @@ public class BugModelDao implements BugModelDaoIntf {
 		}
 	}
 
-	/*
-	 * 1)closeBug(String bugId, String managerName)
-	 * 
-	 * 2)ArrayList<String> fetchDevelopers(String projectName);//assigningbugs
-	 * 
-	 * 3)int findNewBug(Bugs bug) throws BugNotReportedException;
-	 * 
-	 * 4)ArrayList<String> fetchProjects();
-	 * 
-	 * 5)ArrayList<Bugs>Displaybugs(projectName);
-	 * 
-	 * 6)assignbugs(devname, bugid);
-	 */
-
+	
 	public List<Bugs> testerProjectDetails(String emailId) {
 		ArrayList<Bugs> bugslist = new ArrayList<>();
 		String sql = "select bug_title, bug_desc, severity_level,project_name from bugs where created_by=(select user_name from Users where email_id =?)order by project_name;";
@@ -110,7 +97,6 @@ public class BugModelDao implements BugModelDaoIntf {
 		String sql = "update bugs set marked_for_closing=? where bug_id like ?";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
-			System.out.println("inside mark " + bugId);
 			pst.setBoolean(1, true);
 			pst.setString(2, bugId);
 			int i = pst.executeUpdate();
@@ -263,7 +249,6 @@ public class BugModelDao implements BugModelDaoIntf {
 		String testerQuery = "select user_name from Users where user_id in (select user_id from team where project_id in (select project_id from project where project_name = ?)) and role = ?;";
 		try {
 			PreparedStatement stmt = con.prepareStatement(testerQuery);
-			System.out.println("Project name for getting tester name:"+projectName);
 			stmt.setString(1, projectName);
 			stmt.setString(2, "Tester");
 			ResultSet res = stmt.executeQuery();

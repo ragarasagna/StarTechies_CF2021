@@ -13,11 +13,8 @@ import javax.servlet.http.HttpSession;
 public class LogOutServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-        //request.getSession().invalidate();
 
-		System.out.println("LoggingOutServlet: Id: "+session.getId());
 		
 		session.invalidate();
 		request.getRequestDispatcher("../jsp/home.jsp").forward(request, response);
@@ -25,7 +22,6 @@ public class LogOutServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 	}
 

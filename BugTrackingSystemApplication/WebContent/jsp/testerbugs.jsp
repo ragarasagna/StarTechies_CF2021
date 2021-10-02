@@ -76,8 +76,16 @@
 
 <c:choose>
   <c:when test="${length==0}">
-    <h3 align="center">No Bugs Created Yet</h3>
-  </c:when>
+<center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>You Have Not Reported a Bug yet  </th>
+                </tr>
+                </table>
+   
+    
+    </center>  </c:when>
   
   <c:otherwise>
     <table align="center" cellpadding="5" width="100%">

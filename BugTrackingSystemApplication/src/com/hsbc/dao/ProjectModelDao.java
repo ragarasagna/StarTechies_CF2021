@@ -34,17 +34,7 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 		}
 	}
 
-	/*
-	 * 1)String addProject(Project p, String userid); 4)void
-	 * assignTeamMembers(String[] list, String projectId);
-	 * 
-	 * 5)public List<ProjectName> displayprojectNames(String userId)
-	 * 
-	 * - public List<Project> projectdetails()
-	 * 
-	 * 6)public String getStartDate(String projectName);
-	 */
-
+	
 	public String projectName(String emailId) {
 		String name = null;
 		PreparedStatement pstat = null;
@@ -53,40 +43,30 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 			pstat = con.prepareStatement(sql);
 			pstat.setString(1, emailId);
 			ResultSet rs = pstat.executeQuery();
-			System.out.println(rs);
 			while (rs.next()) {
-				// System.out.println("Hey");
 				name = rs.getString("project_name");
 
-				System.out.println("hello");
 			}
 
 		} catch (SQLException e) {
 
-			System.out.println("world");
 		}
 		return name;
 	}
 
 	public List<Project> projectNames(String emailId) {
-		// TODO Auto-generated method stub
 		List<Project> list = new ArrayList<>();
 		PreparedStatement pstat = null;
-		// String sql="select * from users";
 		String sql = "select project_id from team where user_id in(select user_id from Users where email_id=?);";
 
-		// String sql="select project_name from project where project_id in (select
-		// project_id from team where user_id = ?);";
 		try {
 
 			pstat = con.prepareStatement(sql);
 			pstat.setString(1, emailId);
 			ResultSet rs = pstat.executeQuery();
-			System.out.println(rs);
 
 			while (rs.next()) {
 				String projectId = (rs.getString("project_id"));
-				System.out.println("Project Id inside loop:" + projectId);
 				String query = "select project_name from project where project_id=?";
 				pstat = con.prepareStatement(query);
 				pstat.setString(1, projectId);
@@ -99,12 +79,9 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 
 			}
 
-			for (Project n : list) {
-				System.out.println(n.getProjectName());
-			}
+			
 		} catch (SQLException e) {
-
-			System.out.println("world");
+e.printStackTrace();
 		}
 
 		return list;
@@ -155,9 +132,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 
 			else {
 				message = "Project added successfully!";
-				System.out.println(message);
-				System.out.println("emailid of project manager is: " + emailId);
-				System.out.println("projectId of the created project is " + p.getProjectId());
 				teamresult = save(emailId, p.getProjectId());// update team table
 				updateProjectCounter(emailId, con);
 			}
@@ -266,7 +240,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 
 		Users userObj = null;
 		ArrayList<Users> userList = new ArrayList<>();
-		System.out.println("teamlistdao: " + userList);
 
 		try {
 
@@ -305,7 +278,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("startdate from dao" + dateStr);
 		return dateStr;
 	}
 
@@ -336,7 +308,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 				String bugStatus = rs.getString(10);
 				String severityLevel = rs.getString(11);
 				boolean markedForClosing = rs.getBoolean(8);
-				System.out.println("the markeforclosing is: " + markedForClosing);
 				String message;
 				if (markedForClosing) {
 
@@ -433,8 +404,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 
 		for (String s : projectIds) {
 			try {
-				// String testersInSameProjectquery = "select distinct user_id from team where
-				// role='Tester' and project_id=?;";
 				String testersInSameProjectquery = "select distinct user_name from Users where user_id in(select distinct user_id from team where role='Tester' and project_id=?);";
 
 				PreparedStatement stmt2 = con.prepareStatement(testersInSameProjectquery);
@@ -449,7 +418,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 				e.printStackTrace();
 			}
 
-			// add to testers list.
 		}
 
 		String testersAvailablequery = "select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<2);";
@@ -489,7 +457,6 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 		}
 
 		List<String> team = testers.stream().distinct().collect(Collectors.toList());
-		System.out.println("team mebers are dao..." + team);
 		return team;
 	}
 
@@ -511,10 +478,8 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Developer List:" + devList);
 		return devList;
 
 	}

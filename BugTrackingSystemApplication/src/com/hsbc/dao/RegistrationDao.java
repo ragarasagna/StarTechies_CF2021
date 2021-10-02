@@ -18,11 +18,7 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 	}
 	@Override
 	public String registerUser(Users user) {
-		// TODO Auto-generated method stub
 		String message=null;
-		// TODO Auto-generated method stub
-		//String userId= user.getUserId();
-		//String userName= user.getUserName();
 		String userEmail= user.getUserEmail();
 		String userRole= user.getUserRole();
 		String password= user.getPassword();
@@ -50,8 +46,6 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 					//check in users table
 					String s1=(result1.getString("role"));
 					String s=Roles.Tester.toString();
-					//if(s1.equals(Roles.Developer)|| s1.equals(Roles.ProjectManager) || s1.equals(Roles.Tester))
-					//{
 					if(s1.equals(Roles.Tester.toString()) || s1.equals(Roles.Developer.toString()) || s1.equals(Roles.ProjectManager.toString())) {
 					String s2=(user.getUserRole());
 
@@ -94,7 +88,6 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 		
 		}
 		catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch(SQLException e)
@@ -116,11 +109,9 @@ public class RegistrationDao implements RegsitrationDaoIntf {
 			stmt.setString(2, u.getUserName());
 			stmt.setString(3, u.getUserRole());
 			stmt.setString(4, u.getUserEmail());
-			System.out.println(u.getPassword());
 			stmt.setString(5, u.getPassword());
 		    result= stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;

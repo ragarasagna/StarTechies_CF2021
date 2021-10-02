@@ -83,7 +83,16 @@
 
  <c:choose>
   <c:when test="${length==0}">
-    <h4 align="center">No projects Created</h4>
+   <center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>You Have Not Created A Project Yet  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
   </c:when>
    <c:otherwise>
     <table align="center" cellpadding="2" width="100%">
@@ -105,20 +114,7 @@
 
 
 
-          <!--   <table align="center" cellpadding="2" width="100%">
-                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
-                  <th>Project Name</th>
-                </tr>
-               
-                 <c:forEach items="${projects}" var="project">
-                 <tr align="center">
-                 <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>
-                 </tr>
-                 </c:forEach>
-                  
-                    <!--  <td><a href="/BugTrackingSystemApplication/ProjectDetailsServlet/p01">p01</a></td>
-               
-                </table>-->
+        
                 
                  
                  

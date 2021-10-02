@@ -49,7 +49,8 @@
 		pageContext.setAttribute("team", users);
 		ArrayList<Bugs> bugs = (ArrayList<Bugs>) request.getAttribute("bugslist");
 		pageContext.setAttribute("bugslist", bugs);
-
+		int length= bugs.size();
+		pageContext.setAttribute("length", length);
 		ArrayList<Users> devlist = (ArrayList<Users>) request.getAttribute("developerList");
 		pageContext.setAttribute("devlist", devlist);
 
@@ -134,8 +135,23 @@
 			</table>
 
 
-			<br> <label for="bugs"><b>Bugs List</b></label>
-
+			<br> <br><br>
+<c:choose>
+  <c:when test="${length==0}">
+  <center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>Bugs Are Not Yet Reported  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
+  </c:when>
+  
+  <c:otherwise>
+  	<br> <label for="bugs"><b>Bugs List</b></label>
 			<table>
 				<tr bgcolor="black" class="whitetext" align="center"
 					style="color: white">
@@ -177,21 +193,7 @@
 						<td>${bug.bugStatus }</td>
 						<td>${bug.markedForClosing}</td>
 						<td>${bug.assignedTo}</td>
-						<!-- <td><input type="hidden" value="${bug.bugId}" name="h1" ><input type="hidden" value="${projectName}" name="projectName"></td>
-						<td><select name="devName">
-								<option value="" selected>Selected</option>
-								<c:forEach items="${devlist}" var="developer">
-									<option value="${developer.userName}">${developer.userName}</option>
-								</c:forEach>
-						</select></td> 
-
-						<td><c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
-								 <input type="submit" value="Assign">
-								   <input type="button" value="Assign"
-									onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'">
 						
-							</c:if></td>
-							-->
 						<td><c:if
 								test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
 								<input type="button" value="close"
@@ -232,6 +234,8 @@
 					<td><input type="submit" value="Assign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 			</table>
+			</c:otherwise>
+</c:choose>
 		</div>
 
 		<input type="hidden" name="managername" value=" ${managername}" >

@@ -24,7 +24,6 @@ public class ImportUsersServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		InputStream is = request.getInputStream();
 
 		File file = new File("C:\\importusers\\users.json");
@@ -52,7 +51,6 @@ public class ImportUsersServlet extends HttpServlet {
 		ImportUsersServiceIntf imp = new ImportUsersService();
 		imp.readFile();
 		request.getRequestDispatcher("../jsp/register.jsp").forward(request,response);
-		// out.println("Successfully Uploaded.");
 	}
 
 }

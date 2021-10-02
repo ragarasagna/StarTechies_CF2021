@@ -85,7 +85,12 @@ pageContext.setAttribute("projectCounter", projectCounter);
 			<p><%=session.getAttribute("role")%></p>
 			<label for="lastlogin"><b>Last Login</b></label>
 			<p><%=session.getAttribute("last_login")%></p>
-            <h4 align="center" style="color:red"> You Can Create Up To 4 Projects</h4>
+            <!-- <h4 align="center" style="color:red"> You Can Create Up To 4 Projects</h4>-->
+            <table align="center" cellpadding="2" width="100%">
+                <tr style="background-image: linear-gradient(to left, red, rgb(136, 48, 48)); height:40px;color: white;" class="whitetext" align="center" color= white>
+                  <th><h5> You Can Create Up To 4 Projects</h5> </th>
+                </tr>
+                </table>
 		</div>
 
 	</form>

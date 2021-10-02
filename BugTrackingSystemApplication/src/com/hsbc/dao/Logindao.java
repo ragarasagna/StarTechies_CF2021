@@ -91,7 +91,6 @@ public class Logindao implements LoginDaoIntf {
 	public void updateLoginTime(String emailId) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		String query = "UPDATE Users SET last_login = ? WHERE email_id = ?";
-		System.out.println(query);
 
 		try {
 			prepSt = con.prepareStatement(query);

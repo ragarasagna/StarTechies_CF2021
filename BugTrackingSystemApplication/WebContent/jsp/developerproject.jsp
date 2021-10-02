@@ -110,7 +110,16 @@ pageContext.setAttribute("listLength", listLength);
 <c:choose>
   <c:when test="${listLength==0}">
   	<br><br><br>
-    <h4 align="center">No Bugs Assigned</h4>
+    <center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>No Bugs Assigned  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
   </c:when>
    <c:otherwise>
    <label for="bugstatus"><b>Bug Status</b></label>
