@@ -33,10 +33,13 @@
 <body>
 <%@page import="java.util.*, com.hsbc.beans.Project"%>
 	<%
+	Integer projectCounter= (Integer)session.getAttribute("projectCounter");
+	//int pc= Integer.parseInt(projectCounter);
+	pageContext.setAttribute("projectCounter", projectCounter);
 		List<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
 		pageContext.setAttribute("projects", projects);
-		int maxlimit= projects.size();
-		pageContext.setAttribute("maxlimit", maxlimit);
+		int length= projects.size();
+		pageContext.setAttribute("length", length);
 	    
 		%>
     <section id="nav-bar">
@@ -54,11 +57,12 @@
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/pmpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
+                            <c:if test="${projectCounter<4}">
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/NewProject" role="button"><i
                                         class="fas fa-project-diagram"></i> New Project</a>
                             </li>&nbsp;&nbsp;&nbsp;
-                         
+                         </c:if>
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
@@ -77,12 +81,16 @@
             <h2 align="center">Projects</h2>
             <hr>
 
-            <table align="center" cellpadding="2" width="100%">
+ <c:choose>
+  <c:when test="${length==0}">
+    <h4 align="center">No projects Created</h4>
+  </c:when>
+   <c:otherwise>
+    <table align="center" cellpadding="2" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                   <th>Project Name</th>
                 </tr>
-                
-                
+               
                  <c:forEach items="${projects}" var="project">
                  <tr align="center">
                  <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>
@@ -92,6 +100,25 @@
                     <!--  <td><a href="/BugTrackingSystemApplication/ProjectDetailsServlet/p01">p01</a></td>-->
                
                 </table>
+  </c:otherwise>
+</c:choose>
+
+
+
+          <!--   <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>Project Name</th>
+                </tr>
+               
+                 <c:forEach items="${projects}" var="project">
+                 <tr align="center">
+                 <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>
+                 </tr>
+                 </c:forEach>
+                  
+                    <!--  <td><a href="/BugTrackingSystemApplication/ProjectDetailsServlet/p01">p01</a></td>
+               
+                </table>-->
                 
                  
                  

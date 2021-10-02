@@ -29,6 +29,9 @@
 <%
 	ArrayList<Bugs> buglist = (ArrayList<Bugs>) request.getAttribute("testerbuglist");
 	pageContext.setAttribute("buglist", buglist);
+	int length= buglist.size();
+	pageContext.setAttribute("length", length);
+    
 
 %>
     <section id="nav-bar">
@@ -64,12 +67,20 @@
         </nav>
     </section>                                
     <br><br><br>
+
+    
     <form>
         <div class="container">
             <h2 align="center">Project Details</h2>
             <hr>
 
-            <table align="center" cellpadding="5" width="100%">
+<c:choose>
+  <c:when test="${length==0}">
+    <h3 align="center">No Bugs Created Yet</h3>
+  </c:when>
+  
+  <c:otherwise>
+    <table align="center" cellpadding="5" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                
                 <th>Project Name</th>
@@ -87,6 +98,28 @@
 					</tr>
 				</c:forEach>
                 </table>
+  </c:otherwise>
+</c:choose>
+
+
+            <!--  <table align="center" cellpadding="5" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+               
+                <th>Project Name</th>
+                <th>Bug Name</th>
+                <th>Description</th>
+                <th>Severity Level</th>
+                </tr>
+                
+                <c:forEach items="${buglist}" var="bug">
+					<tr align="center">
+						<td>${bug.projectName }</td>
+						<td>${bug.bugTitle }</td>
+						<td>${bug.bugDesc }</td>
+						<td>${bug.severityLevel }</td>
+					</tr>
+				</c:forEach>
+                </table>-->
         </div>
 
     </form>

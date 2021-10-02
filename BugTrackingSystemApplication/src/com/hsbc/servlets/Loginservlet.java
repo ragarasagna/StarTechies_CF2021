@@ -40,8 +40,11 @@ public class Loginservlet extends HttpServlet {
 	        {
 	        	Date lastlogin = loginDao.getLastLoginTime(emailId);
 	        	String dateStr;
+	        	int projectCounter=loginDao.fetchProjectCounter(emailId);
 	        	//If last login is not available,get the current timeStamp and display it.
 	        	//If it is available, display that.
+	        	
+	        	
 	        	if(lastlogin != null) {
 	        		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		        	dateStr = formatter.format(lastlogin);
@@ -62,6 +65,8 @@ public class Loginservlet extends HttpServlet {
 	            HttpSession session = req.getSession(); //Creating a session
 	            String seshId = session.getId();
 	            session.setAttribute("session_id",seshId);
+	            session.setAttribute("projectCounter", projectCounter);
+	            System.out.println("project counter for project manager:"+projectCounter);
 	            session.setAttribute("emailId", emailId);
 	          System.out.println("session after login:"+seshId);
 	            session.setAttribute("last_login", dateStr);

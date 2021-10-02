@@ -43,6 +43,8 @@ List<Users> team= (List<Users>)request.getAttribute("team");
 pageContext.setAttribute("team", team);
 List<Bugs> bugslist=(List<Bugs>)request.getAttribute("bugslist");
 pageContext.setAttribute("bugs", bugslist);
+int listLength= bugslist.size();
+pageContext.setAttribute("listLength", listLength);
 
 %>
 
@@ -105,7 +107,43 @@ pageContext.setAttribute("bugs", bugslist);
 				</c:forEach>
             </table>
 
-            <label for="bugstatus"><b>Bug Status</b></label>
+<c:choose>
+  <c:when test="${listLength==0}">
+  	<br><br><br>
+    <h4 align="center">No Bugs Assigned</h4>
+  </c:when>
+   <c:otherwise>
+   <label for="bugstatus"><b>Bug Status</b></label>
+            <table text-align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                <th>Bug Name</th>
+                <th>Status</th>
+                <th>Mark For Closing</th>
+
+                </tr>
+                
+                <c:forEach items="${bugs}" var="bug">
+					<tr>
+						<td>${bug.bugTitle }</td>
+						<td>${bug.bugStatus }</td>
+	                    <td>
+												
+					<c:if test="${bug.markedForClosing.equalsIgnoreCase('no') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
+					      <%--  <input type="button" name="close" value="close" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned/close/${bug.bugId }" > --%>
+					      <input type="button" value="close" onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned/close/${bug.bugId }'"/>
+					       </c:if>
+					   </td>
+
+					</tr>
+				</c:forEach>
+             
+            </table>
+   
+  </c:otherwise>
+</c:choose>
+
+
+         <!--    <label for="bugstatus"><b>Bug Status</b></label>
             <table text-align="center" cellpadding="2" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                 <th>Bug Name</th>
@@ -134,7 +172,7 @@ pageContext.setAttribute("bugs", bugslist);
                 
                 
             </table>
-
+-->
         </div>
 
     </form>
