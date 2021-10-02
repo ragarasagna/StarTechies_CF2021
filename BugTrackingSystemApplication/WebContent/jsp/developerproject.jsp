@@ -49,7 +49,7 @@ pageContext.setAttribute("bugs", bugslist);
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
+                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,13 +58,10 @@ pageContext.setAttribute("bugs", bugslist);
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="developerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/developerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="developerproject.html" role="button"><i
-                                        class="fas fa-spider"></i> Project Assigned</a>
-                            </li>&nbsp;&nbsp;&nbsp;
+                            
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>

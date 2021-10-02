@@ -42,7 +42,7 @@ public class ImportUsersDao implements ImportUsersDaoIntf {
 			JSONArray imp_list = (JSONArray) obj;
 
 			Iterator it = imp_list.iterator();
-			PreparedStatement preparedStmt=null;
+			PreparedStatement preparedStmt = null;
 
 			while (it.hasNext()) {
 				JSONObject jo = (JSONObject) it.next();
@@ -53,25 +53,26 @@ public class ImportUsersDao implements ImportUsersDaoIntf {
 				user.setUserRole(userRole);
 				String userEmail = (String) jo.get("userEmail");
 				user.setUserEmail(userEmail);
-				String[] arr=userEmail.split("@",2);
+				String[] arr = userEmail.split("@", 2);
 				String userId = arr[0];
-				
-				String checkQuery="Select user_id from imported_users where user_id=?";
+
+				String checkQuery = "Select user_id from imported_users where user_id=?";
 				preparedStmt = con.prepareStatement(checkQuery);
 				preparedStmt.setString(1, userId);
 				ResultSet result = preparedStmt.executeQuery();
-				
-				if(!result.next()) {
-					String insertQuery = "insert into imported_users (user_id,email_id,role,user_name)" + "values(?,?,?,?)";
+
+				if (!result.next()) {
+					String insertQuery = "insert into imported_users (user_id,email_id,role,user_name)"
+							+ "values(?,?,?,?)";
 					preparedStmt = con.prepareStatement(insertQuery);
 					preparedStmt.setString(1, userId);
 					preparedStmt.setString(2, userEmail);
 					preparedStmt.setString(3, userRole);
 					preparedStmt.setString(4, userName);
 					preparedStmt.execute();
-	
+
 				}
-				
+
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

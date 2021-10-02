@@ -26,17 +26,17 @@
                         rel="stylesheet">
 
 
-                    <link rel="stylesheet" href="../css/loginPageStyle.css" type="text/css">
-
+                    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/loginPageStyle.css">
+<script type="text/javascript" src="/BugTrackingSystemApplication/js/loginValidation.js"></script>
                 </head>
 
-                <body>
+               
 
                     <body>
                         <section id="nav-bar">
                             <nav class="navbar navbar-expand-lg navbar-light">
                                 <div class="container-fluid">
-                                    <a class="navbar-brand" href="../html/home.html" style="font-size: 60px;"><i
+                                    <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i
                                             class="fas fa-bug fa-spin"></i>&nbsp;BugTracker</a>
                                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -56,20 +56,21 @@
                         </section>
 
                         <br><br><br>
-                        <form action="../jsp/Loginservlet" method="POST">
+                        <form action="/BugTrackingSystemApplication/jsp/Loginservlet" method="POST"  onsubmit="return validateEmail()">
                             <div class="container">
                                 <h1 align="center">Login</h1>
                                 <hr>
                                 <h4>
                                     <label for="email"><b>Email</b></label>
                                     <input type="email" placeholder="Enter Email" name="email" id="email" required>
+                                    <div class="error" id="emailErr" style="color:red"></div>
                                     <label for="psw"><b>Password</b></label>
                                     <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
                                     <hr>
 
-                                    <button type="submit" class="loginbtn">Login</button>
+                                    <input type="submit" class="loginbtn" value="Login">
                                 </h4>
-                                <h4>Don't have an account? <a href="../jsp/register.jsp">Register</a></h4>
+                                <h4>Don't have an account? <a href="/BugTrackingSystemApplication/jsp/register.jsp">Register</a></h4>
 
                             </div>
 

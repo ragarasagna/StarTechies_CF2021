@@ -36,11 +36,11 @@
                                 <div class="collapse navbar-collapse" id="navbarText">
                                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                         <li class="nav-item">
-                                            <a class="btn btn-warning" href="../jsp/register.jsp" role="button"><i
+                                            <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/register.jsp" role="button"><i
                                                     class="fas fa-user"></i>Register</a>
                                         </li>&nbsp;&nbsp;&nbsp;
                                         <li class="nav-item">
-                                            <a class="btn btn-warning" href="../jsp/login.jsp" role="button"><i
+                                            <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/login.jsp" role="button"><i
                                                     class="fas fa-sign-in-alt"></i>Login</a>
                                             </button>
                                         </li>
@@ -68,7 +68,7 @@
                                 facilitates the production<br> of
                                 high-quality software.
                             </p><br>
-                            <a class="btn btn-danger" href="../jsp/importusers.jsp" role="button"
+                            <a class="btn btn-danger" href="/BugTrackingSystemApplication/jsp/importusers.jsp" role="button"
                                 style="font-size: 18px;">Import
                                 Users &nbsp;<i class='fas fa-angle-double-right'></i><a>
                         </div>

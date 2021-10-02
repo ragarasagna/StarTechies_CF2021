@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/testerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
@@ -65,7 +65,7 @@
             <hr>
             <label for="pname"><b>Project Name</b></label>
             <!--input type="text" placeholder="Enter name" name="pname" id="pname" required-->
-            <select name="pname" id="pname">
+            <select name="pname" id="pname" required>
                 <option>Select Project Name</option>
                
                 <c:forEach items="${projects}" var="projects">

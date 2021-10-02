@@ -17,6 +17,8 @@ public interface BugModelDaoIntf {
 	public void markForClose(String bugId);
 
 	public ArrayList<Bugs> DisplayBugs(String projectName);
+	
+	public ArrayList<Bugs> DisplayBugs(String projectName,String severity);
 
 	public void closeBug(String bugId, String managerEmailId);
 

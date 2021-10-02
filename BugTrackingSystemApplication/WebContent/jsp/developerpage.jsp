@@ -8,7 +8,7 @@
                 <head>
                     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" href="../css/ptdstyle.css" type="text/css" />
+                    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/ptdstyle.css" type="text/css" />
                     <link rel="preconnect" href="https://fonts.googleapis.com">
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap"
@@ -27,7 +27,7 @@
                     <section id="nav-bar">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <div class="container-fluid">
-                                <a class="navbar-brand" href="../jsp/home.jsp" style="font-size: 60px;"><i
+                                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i
                                         class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
@@ -37,10 +37,7 @@
                                 <span class="navbar-text">
                                     <div class="collapse navbar-collapse" id="navbarText">
                                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li class="nav-item">
-                                                <a class="btn btn-warning" href="../jsp/developerpage.jsp" role="button"><i
-                                                        class="fas fa-user"></i> Profile</a>
-                                            </li>&nbsp;&nbsp;&nbsp;
+                                           
                                             <li class="nav-item">
                                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned" role="button"><i
                                                         class="fas fa-spider"></i> Project Assigned</a>

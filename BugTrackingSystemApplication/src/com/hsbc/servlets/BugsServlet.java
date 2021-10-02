@@ -13,11 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.hsbc.beans.Bugs;
 import com.hsbc.beans.Project;
+import com.hsbc.beans.Users;
 import com.hsbc.business.BugOperationsService;
 import com.hsbc.business.BugOperationsServiceIntf;
 
 import com.hsbc.business.ProjectOperationsService;
 import com.hsbc.business.ProjectOperationsServiceIntf;
+import com.hsbc.dao.ProjectModelDao;
 
 @WebServlet("/jsp/BugsServlet/*")
 public class BugsServlet extends HttpServlet {
@@ -65,22 +67,46 @@ public class BugsServlet extends HttpServlet {
 		} else if (arr[0].equals("BugsReported")) {
 			fetchBugDetails(request, response, session);
 		}
-/*
-		if (arr.length > 2) {
-			if (arr[1].equals("AssignBug")) {
-				System.out.println("inside assign bug");
-				String bugId = arr[2];
-				projectName = arr[0];
-
-			}
-		}*/
+		else if (arr[0].equals("treportbug")) {
+			response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported");
+		} 	
 
 		else if (arr[0].isEmpty()) {
-			response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported/" + projectName);
+			response.sendRedirect("/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported");
 		} 
 	}
 
-	/* ${projectName}/AssignBug/${bug.bugId } */
+	void projectDetails(HttpServletRequest request, HttpServletResponse response,HttpSession session, String projectName,
+			String severity) {
+	
+		ProjectModelDao dao = new ProjectModelDao();
+		List<Users> teamDetails = projectService.getTeamMembers(projectName);
+		List<Users> devList = dao.fetchDevelopersByProjectName(projectName);
+		System.out.println("devlist from servlet....." + devList);
+		String emailId = (String) session.getAttribute("emailId");
+		System.out.println("team details: " + teamDetails);
+		String projectManagerName = projectService.getManagerName(projectName);
+		String startDate = projectService.getStartDate(projectName);
+		List<Bugs> bugsList = bugService.DisplayBugs(projectName,severity);
+		request.setAttribute("projectName", projectName);
+		request.setAttribute("managername", projectManagerName);
+		request.setAttribute("date", startDate);
+		request.setAttribute("team", teamDetails);
+		request.setAttribute("bugslist", bugsList);
+		request.setAttribute("developerList", devList);
+		System.out.println("Inside method" + bugsList);
+		try {
+			request.getRequestDispatcher("/jsp/pmdisplaydetails.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
 
 	private void assignBug(HttpServletRequest request, HttpServletResponse response, HttpSession session, String bugId,
 			String projectName) {
@@ -128,7 +154,6 @@ public class BugsServlet extends HttpServlet {
 			path = request.getPathInfo().substring(1);
 			arr = path.split("/", 5);
 		}
-		System.out.println("inside the do post pathhhh:"+path);
 		
 		if (arr[0].equals("treportbug")) {
 			Bugs bug = new Bugs();
@@ -138,15 +163,22 @@ public class BugsServlet extends HttpServlet {
 			bug.setSeverityLevel(request.getParameter("severity"));
 			bugService.reportNewBug(bug);
 		} else if (arr[0].equals("pmdisplaydetails")) {
-			projectName = arr[1];
-			String bugId = arr[2];
-			System.out.println("Inside Do post:project name:- " + projectName);
-			System.out.println("Inside Do post:Bug Id:- " + bugId);
+			projectName = request.getParameter("projectName");
+			String bugId = request.getParameter("bugId");
+			
 			assignBug(request, response, session, bugId, projectName);
 
+		}else if(arr[0].equals("filter")) {
+			projectName = request.getParameter("projectName1");
+			String severity=request.getParameter("filter");
+			System.out.println("Inside Do post:project name:- " + projectName);
+			System.out.println("Inside Do post:severity "+severity);
+			projectDetails(request, response, session, projectName, severity);
+			
 		}
 
 		doGet(request, response);
 	}
 
-}
+};
+

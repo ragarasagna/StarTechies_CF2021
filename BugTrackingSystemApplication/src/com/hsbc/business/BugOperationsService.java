@@ -39,6 +39,11 @@ public class BugOperationsService implements BugOperationsServiceIntf {
 		ArrayList<Bugs> bugsList = bugModel.DisplayBugs(projectName);
 		return bugsList;
 	}
+	@Override
+	public ArrayList<Bugs> DisplayBugs(String projectName,String severity) {
+		ArrayList<Bugs> bugsList = bugModel.DisplayBugs(projectName,severity);
+		return bugsList;
+	}
 
 	@Override
 	public void closeBug(String bugId, String managerEmailId) {

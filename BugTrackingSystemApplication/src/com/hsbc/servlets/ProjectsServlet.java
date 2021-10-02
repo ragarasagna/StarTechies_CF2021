@@ -1,10 +1,13 @@
 package com.hsbc.servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -170,16 +173,15 @@ public class ProjectsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println("close value is:" + request.getAttribute("close"));
 		String projectName = null;
 		String path = null;
 		String[] arr = null;
 		if (request.getPathInfo() != null) {
 			path = request.getPathInfo().substring(1);
 			arr = path.split("/", 5);
+		}
 			for (String s : arr) {
 				System.out.println("pathh:" + s);
-			} /// Details/${projectName}/assign/bugid
 			if (arr[0].equals("Details")) {
 				if (arr.length > 1) {
 					if (arr.length == 2) {
@@ -215,12 +217,9 @@ public class ProjectsServlet extends HttpServlet {
 					retrieveProject(request, response, session);
 				}
 
-			}
-			else if(arr[0].equals("TesterBugDetails"))
-			{
-				
-			}
-			else if (arr[0].equals("LogOut")) {
+			} else if (arr[0].equals("TesterBugDetails")) {
+
+			} else if (arr[0].equals("LogOut")) {
 				System.out.println("In logout called");
 				logOutSession(request, response, session);
 			}
@@ -251,35 +250,20 @@ public class ProjectsServlet extends HttpServlet {
 
 	}
 
-//		System.out.println("substring 2: "+request.getPathInfo().substring(2));
-//		System.out.println("projectName: "+projectName);
-//		//System.out.println("project name is...:"+projectName);
-//		List<Users> teamDetails= Sr.getTeamMembers(projectName);
-//		String emailId= (String)session.getAttribute("emailId");
-//		List<Project> projects= Sr.projectNames(emailId);
-//		System.out.println("team details: "+teamDetails);
-//		String projectManagerName=Sr.getManagerName(projectName);
-//		
-//		String startDate= Sr.getStartDate(projectName);
-//		System.out.println("managername: "+projectManagerName);
-//		System.out.println("startdae: "+startDate);
-	/*
-	 * ArrayList<Bugs> bugslist= Sr.fetchBugsList(projectName); for(Bugs bug:
-	 * bugslist) { System.out.println(bug.getBugDesc()); }
-	 */
-	// request.setAttribute("bugslist", bugslist);
-//		request.setAttribute("projectname", projectName);
-//		request.setAttribute("managername", projectManagerName);
-//		request.setAttribute("date", startDate);
-//		request.setAttribute("team", teamDetails);
-//		request.setAttribute("projects", projects);
-//		request.getRequestDispatcher("../jsp/pmdisplaydetails.jsp").forward(request, response);	
-
-	// response.sendRedirect(arg0);
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yyyy");
+		Date startDate = null;
+		try {
+			startDate = formatter1.parse(request.getParameter("sdate"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LocalDate date = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		System.out.println("Date from form:" + startDate);
+		System.out.println("Date in local date form" + date);
 		HttpSession session = request.getSession();
 		String emailId = (String) session.getAttribute("emailId");
 		Project project = new Project();
@@ -287,7 +271,7 @@ public class ProjectsServlet extends HttpServlet {
 		project.setProjectName(request.getParameter("pname"));
 
 		project.setProjectDesc(request.getParameter("desc"));
-		project.setStartDate(LocalDate.parse(request.getParameter("sdate")));
+		project.setStartDate(date);
 
 		String[] teamMembers = request.getParameterValues("teamMembers");
 

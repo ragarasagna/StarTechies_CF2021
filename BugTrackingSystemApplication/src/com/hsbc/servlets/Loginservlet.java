@@ -129,6 +129,8 @@ public class Loginservlet extends HttpServlet {
 	            req.setAttribute("emailId", emailId);
 	            req.setAttribute("last_login", dateStr);
 	            req.setAttribute("role", "Tester");
+	            session.setAttribute("role", "Tester");
+
 	             
 	            req.getRequestDispatcher("../jsp/testerpage.jsp").forward(req, resp);
 	        }

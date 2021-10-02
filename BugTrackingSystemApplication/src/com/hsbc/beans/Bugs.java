@@ -33,6 +33,16 @@ public class Bugs {
 		this.bugId = bugId;
 		this.markedForClosing = markedforClosing;
 	}
+	public Bugs(String bugTitle, String bugStatus, String severityLevel, String description, String bugId,
+			String markedforClosing, String assignedTo) {
+		this.bugTitle = bugTitle;
+		this.bugStatus = bugStatus;
+		this.severityLevel = severityLevel;
+		this.bugDesc = description;
+		this.bugId = bugId;
+		this.markedForClosing = markedforClosing;
+		this.assignedTo= assignedTo;
+	}
 
 	public Bugs(String bugId, String bugTitle, String bugDesc, String projectName, String createdBy, String assignedTo,
 			String closedBy, String bugStatus, String severityLevel, LocalDate openDate, String markedForClosing) {

@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 body {
-        background-image: url('../images/bg.jpg');
+        background-image: url('/BugTrackingSystemApplication/jsp/images/bg.jpg');
         background-repeat: no-repeat;
         
         background-size: cover;
@@ -47,6 +47,7 @@ form {
 
         /* Full-width input fields */
 input[type=text],
+input[type=date],
 input[type=password] {
             width: 60%;
             padding: 10px;

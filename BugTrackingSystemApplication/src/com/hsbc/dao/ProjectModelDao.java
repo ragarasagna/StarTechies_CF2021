@@ -74,33 +74,31 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 		PreparedStatement pstat = null;
 		// String sql="select * from users";
 		String sql = "select project_id from team where user_id in(select user_id from Users where email_id=?);";
-		
+
 		// String sql="select project_name from project where project_id in (select
 		// project_id from team where user_id = ?);";
 		try {
-			
+
 			pstat = con.prepareStatement(sql);
 			pstat.setString(1, emailId);
 			ResultSet rs = pstat.executeQuery();
 			System.out.println(rs);
-			
+
 			while (rs.next()) {
-				String projectId=(rs.getString("project_id"));
-				System.out.println("Project Id inside loop:"+projectId);
-				String query="select project_name from project where project_id=?";
-				pstat=con.prepareStatement(query);
+				String projectId = (rs.getString("project_id"));
+				System.out.println("Project Id inside loop:" + projectId);
+				String query = "select project_name from project where project_id=?";
+				pstat = con.prepareStatement(query);
 				pstat.setString(1, projectId);
-				ResultSet rs1= pstat.executeQuery();
-				if(rs1.next())
-				{
+				ResultSet rs1 = pstat.executeQuery();
+				if (rs1.next()) {
 					Project project = new Project();
 					project.setProjectName(rs1.getString("project_name"));
 					list.add(project);
 				}
-				
+
 			}
-				
-				
+
 			for (Project n : list) {
 				System.out.println(n.getProjectName());
 			}
@@ -113,22 +111,41 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 	}
 
 	public Project addProject(Project p, String emailId) throws projectNotAddedException {
-		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		boolean flag = true;
 		int projectresult, teamresult;
 		String message = null;
-Project project=null;
+		Project project = null;
+
+		while (flag) {
+			String potentialProjectId = generateProjectId();
+			String checkQuery = "select project_id from project where project_id=?";
+			try {
+				pstmt = con.prepareStatement(checkQuery);
+				pstmt.setString(1, potentialProjectId);
+				ResultSet rs = pstmt.executeQuery();
+
+				if (!rs.next()) {
+					flag = false;
+					p.setProjectId(potentialProjectId);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		try {
 
 			String projectquery = "insert into project (project_id,project_name,project_desc,start_date,project_state) values(?,?,?,?,?);";
-			PreparedStatement pstmt = con.prepareStatement(projectquery);
-			p.setProjectId(UUID.randomUUID().toString());
+			pstmt = con.prepareStatement(projectquery);
 			p.setProjectStatus("InProgress");
 			pstmt.setString(1, p.getProjectId());
 			pstmt.setString(2, p.getProjectName());
 			pstmt.setString(3, p.getProjectDesc());
 			pstmt.setDate(4, Date.valueOf(p.getStartDate()));
 			pstmt.setString(5, p.getProjectStatus());
-			project=p;
+			project = p;
 			projectresult = pstmt.executeUpdate();
 			if (projectresult != 1) {
 				message = "Project not added";
@@ -139,8 +156,8 @@ Project project=null;
 			else {
 				message = "Project added successfully!";
 				System.out.println(message);
-System.out.println("emailid of project manager is: "+ emailId);
-System.out.println("projectId of the created project is "+p.getProjectId());
+				System.out.println("emailid of project manager is: " + emailId);
+				System.out.println("projectId of the created project is " + p.getProjectId());
 				teamresult = save(emailId, p.getProjectId());// update team table
 				updateProjectCounter(emailId, con);
 			}
@@ -148,8 +165,16 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+
 		return project;
+
+	}
+
+	public String generateProjectId() {
+		int min = 4001, max = 9000;
+		int randomNumber = (int) ((Math.random() * ((max - min) + 1)) + min);
+		String ans = Integer.toString(randomNumber);
+		return ("PRJ" + ans);
 
 	}
 
@@ -372,23 +397,21 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 	public List<String> fetchTesters(String projectManagerEmailId) {
 
 		Connection con = null;
-		PreparedStatement stmt=null;
+		PreparedStatement stmt = null;
 		List<String> projectIds = new ArrayList<String>();
 		List<String> testers = new ArrayList<String>();
 		List<String> finalTesters = new ArrayList<String>();
 
 		try {
 			con = JDBCUtility.getConnection();
-			
 
 			String pmId = "select user_id from Users where email_id=?";
 			stmt = con.prepareStatement(pmId);
 			stmt.setString(1, projectManagerEmailId);
-			ResultSet res=stmt.executeQuery();
-			String pmid=null;
-			if(res.next())
-			{
-				pmid=res.getString("user_id");
+			ResultSet res = stmt.executeQuery();
+			String pmid = null;
+			if (res.next()) {
+				pmid = res.getString("user_id");
 			}
 			String projectsQuery = "select project_id from team where user_id=?";
 
@@ -410,7 +433,8 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 
 		for (String s : projectIds) {
 			try {
-				//String testersInSameProjectquery = "select distinct user_id from team where role='Tester' and project_id=?;";
+				// String testersInSameProjectquery = "select distinct user_id from team where
+				// role='Tester' and project_id=?;";
 				String testersInSameProjectquery = "select distinct user_name from Users where user_id in(select distinct user_id from team where role='Tester' and project_id=?);";
 
 				PreparedStatement stmt2 = con.prepareStatement(testersInSameProjectquery);
@@ -443,8 +467,8 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 			e.printStackTrace();
 		}
 
-		List<String> availabletesters= new ArrayList<String>();
-		String alltestersavailabe="select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<1);"; 
+		List<String> availabletesters = new ArrayList<String>();
+		String alltestersavailabe = "select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<1);";
 		try {
 			PreparedStatement stmt4 = con.prepareStatement(alltestersavailabe);
 			ResultSet res4 = stmt4.executeQuery();
@@ -459,57 +483,40 @@ System.out.println("projectId of the created project is "+p.getProjectId());
 			e.printStackTrace();
 		}
 		testers.retainAll(finalTesters);
-		for (String tester : availabletesters){
-			   if (!testers.contains(tester))
-			      testers.add(tester);
-			}
-	
-List<String> team=testers.stream().distinct().collect(Collectors.toList());
-System.out.println("team mebers are dao..."+team);
+		for (String tester : availabletesters) {
+			if (!testers.contains(tester))
+				testers.add(tester);
+		}
+
+		List<String> team = testers.stream().distinct().collect(Collectors.toList());
+		System.out.println("team mebers are dao..." + team);
 		return team;
 	}
-	
-	
-	public List<Users> fetchDevelopersByProjectName(String projectName)
-	{
-		List<Users> devList= new ArrayList<>();
+
+	public List<Users> fetchDevelopersByProjectName(String projectName) {
+		List<Users> devList = new ArrayList<>();
 		PreparedStatement pstmt = null;
-		String query=" WITH temp AS(SELECT u.user_name,u.role,p.project_name FROM users u INNER JOIN team t ON t.user_id = u.user_id INNER JOIN project p ON p.project_id = t.project_id) SELECT distinct user_name FROM temp WHERE role = 'Developer' and project_name=?";
+		String query = " WITH temp AS(SELECT u.user_name,u.role,p.project_name FROM users u INNER JOIN team t ON t.user_id = u.user_id INNER JOIN project p ON p.project_id = t.project_id) SELECT distinct user_name FROM temp WHERE role = 'Developer' and project_name=?";
 		try {
-			pstmt=con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, projectName);
-			ResultSet rs=pstmt.executeQuery();
-			
-			while(rs.next())
-			{
-				String name=rs.getString("user_name");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("user_name");
 				Users u = new Users();
 				u.setUserName(name);
 				devList.add(u);
-				
-						
+
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Developer List:"+devList);
+		System.out.println("Developer List:" + devList);
 		return devList;
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -45,7 +45,7 @@ public class BugModelDao implements BugModelDaoIntf {
 
 	public List<Bugs> testerProjectDetails(String emailId) {
 		ArrayList<Bugs> bugslist = new ArrayList<>();
-		String sql = "select bug_title, bug_desc, severity_level,project_name from bugs where created_by in(select user_id from Users where email_id =?)order by project_name;";
+		String sql = "select bug_title, bug_desc, severity_level,project_name from bugs where created_by=(select user_name from Users where email_id =?)order by project_name;";
 
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -126,20 +126,25 @@ public class BugModelDao implements BugModelDaoIntf {
 	}
 
 	public ArrayList<Bugs> DisplayBugs(String projectName) {
-		System.out.println("project name in bugdao:" + projectName);
 		ArrayList<Bugs> bugsList = new ArrayList<Bugs>();
 		String getBugsQuery = " select * from bugs where project_name=?";
+		
+		
 		try {
 			PreparedStatement pst = con.prepareStatement(getBugsQuery);
 			pst.setString(1, projectName);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				String bugid = rs.getString(1);
-				String bugTitle = rs.getString(2);
-				String bugDesc = rs.getString(3);
-				String bugStatus = rs.getString(10);
-				String severityLevel = rs.getString(11);
-				boolean markedForClosing = rs.getBoolean(8);
+				String bugid = rs.getString("bug_id");
+				String bugTitle = rs.getString("bug_title");
+				String bugDesc = rs.getString("bug_desc");
+				String bugStatus = rs.getString("bug_status");
+				String severityLevel = rs.getString("severity_level");
+				boolean markedForClosing = rs.getBoolean("marked_for_closing");
+				String assignedTo =rs.getString("assigned_to");
+				if(assignedTo==null)
+					assignedTo="Not Assigned";
+				
 				String message;
 				if (markedForClosing) {
 
@@ -147,7 +152,55 @@ public class BugModelDao implements BugModelDaoIntf {
 				} else {
 					message = "no";
 				}
-				Bugs bugObj = new Bugs(bugTitle, bugStatus, severityLevel, bugDesc, bugid, message);
+				Bugs bugObj = new Bugs(bugTitle, bugStatus, severityLevel, bugDesc, bugid, message,assignedTo);
+
+				bugsList.add(bugObj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bugsList;
+
+	}
+	
+	public ArrayList<Bugs> DisplayBugs(String projectName,String severity) {
+		ArrayList<Bugs> bugsList = new ArrayList<Bugs>();
+		String getBugsQuery=null;
+		PreparedStatement pst=null;
+
+		try {
+			if(severity.equals("all")) {
+			getBugsQuery = " select * from bugs where project_name=?";
+			pst = con.prepareStatement(getBugsQuery);
+			pst.setString(1, projectName);
+			}
+			else {
+				getBugsQuery = " select * from bugs where project_name=? and severity_level=?";
+				pst = con.prepareStatement(getBugsQuery);
+				pst.setString(1, projectName);
+				pst.setString(2, severity);
+				
+			}
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				String bugid = rs.getString("bug_id");
+				String bugTitle = rs.getString("bug_title");
+				String bugDesc = rs.getString("bug_desc");
+				String bugStatus = rs.getString("bug_status");
+				String severityLevel = rs.getString("severity_level");
+				boolean markedForClosing = rs.getBoolean("marked_for_closing");
+				String assignedTo =rs.getString("assigned_to");
+				if(assignedTo==null)
+					assignedTo="Not Assigned";
+				
+				String message;
+				if (markedForClosing) {
+
+					message = "yes";
+				} else {
+					message = "no";
+				}
+				Bugs bugObj = new Bugs(bugTitle, bugStatus, severityLevel, bugDesc, bugid, message,assignedTo);
 
 				bugsList.add(bugObj);
 			}
@@ -210,6 +263,7 @@ public class BugModelDao implements BugModelDaoIntf {
 		String testerQuery = "select user_name from Users where user_id in (select user_id from team where project_id in (select project_id from project where project_name = ?)) and role = ?;";
 		try {
 			PreparedStatement stmt = con.prepareStatement(testerQuery);
+			System.out.println("Project name for getting tester name:"+projectName);
 			stmt.setString(1, projectName);
 			stmt.setString(2, "Tester");
 			ResultSet res = stmt.executeQuery();
@@ -224,18 +278,41 @@ public class BugModelDao implements BugModelDaoIntf {
 
 	@Override
 	public int reportNewBug(Bugs bug) throws BugNotReportedException {
-
+		
+		PreparedStatement stmt=null;
 		int result = 0;
+		boolean flag=true;
 		String projectName = bug.getProjectName();
 		String testerName = fetchTesterName(projectName);
-		System.out.println("testers name from report bug: " + testerName);
-		bug.setBugId(UUID.randomUUID().toString());
+		while(flag) {
+			String potentialBugId=generateBugId();
+			String checkQuery="select bug_id from bugs where bug_id=?";
+			try {
+				stmt=con.prepareStatement(checkQuery);
+				stmt.setString(1, potentialBugId);
+				ResultSet rs=stmt.executeQuery();
+				
+				if(!rs.next()) {
+					flag=false;
+					bug.setBugId(potentialBugId);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
+		
+		
 		bug.setCreatedBy(testerName);
 		bug.setOpenDate(LocalDate.now());
 		bug.setBugStatus("Open");
-		String query = "insert into bugs(bug_id, bug_title, bug_desc, project_name, created_by, open_date,bug_status,severity_level) values (?,?,?,?,?,?,?,?); ";
+		String insertQuery = "insert into bugs(bug_id, bug_title, bug_desc, project_name, created_by, open_date,bug_status,severity_level) values (?,?,?,?,?,?,?,?); ";
 		try {
-			PreparedStatement stmt = con.prepareStatement(query);
+			stmt = con.prepareStatement(insertQuery);
 			stmt.setString(1, bug.getBugId());
 			stmt.setString(2, bug.getBugTitle());
 			stmt.setString(3, bug.getBugDesc());
@@ -275,6 +352,15 @@ public class BugModelDao implements BugModelDaoIntf {
 
 			e.printStackTrace();
 		}
+	}
+	
+	public String generateBugId() {
+		int min=1000,max=4000;
+		int randomNumber = (int) ((Math.random() * ((max - min) + 1)) + min);
+		String ans = Integer.toString(randomNumber);
+		return("BUG"+ans);
+		
+		
 	}
 
 }

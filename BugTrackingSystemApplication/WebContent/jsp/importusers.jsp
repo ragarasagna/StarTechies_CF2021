@@ -6,12 +6,13 @@
                 <html lang="en">
 
                 <head>
+                
                     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
                     <title>Import Users</title>
                     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
                     <link rel='stylesheet'
                         href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-                    <link rel="stylesheet" href="../css/importUsersStyle.css" type="text/css">
+                    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/importUsersStyle.css">
                     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap"
                         rel="stylesheet">
                     <link rel="stylesheet"
@@ -22,21 +23,21 @@
                         rel="stylesheet">
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
                     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-                    <script src="../js/importUsersValidation.js" type="text/javascript"></script>
+                    <script src="/BugTrackingSystemApplication/js/importUsersValidation.js" type="text/javascript"></script>
                 </head>
 
 
-                <body>
+                <body >
 
                     <section id="nav-bar">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <div class="container-fluid">
-                                <a class="navbar-brand" href="../html/home.html" style="font-size: 60px;"><i
+                                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i
                                         class="fas fa-bug fa-spin"></i>&nbsp;BugTracker</a>
                             </div>
                         </nav>
                     </section>
-                    <form method="post" action="../jsp/ImportUsersServlet" enctype="multipart/form-data">
+                    <form method="post" action="/BugTrackingSystemApplication/jsp/ImportUsersServlet" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row it">
                                 <div class="col-sm-offset-1 col-sm-10" id="one">

@@ -35,12 +35,14 @@
 	<%
 		List<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
 		pageContext.setAttribute("projects", projects);
+		int maxlimit= projects.size();
+		pageContext.setAttribute("maxlimit", maxlimit);
 	    
 		%>
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
+                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -49,7 +51,7 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/pmpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/pmpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
@@ -79,6 +81,8 @@
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                   <th>Project Name</th>
                 </tr>
+                
+                
                  <c:forEach items="${projects}" var="project">
                  <tr align="center">
                  <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>

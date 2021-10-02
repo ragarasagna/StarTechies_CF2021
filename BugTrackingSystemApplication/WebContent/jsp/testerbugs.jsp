@@ -43,13 +43,10 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/testerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="testerbugs.html" role="button"><i
-                                        class="fas fa-tasks"></i> Projects</a>
-                            </li>&nbsp;&nbsp;&nbsp;
+                            
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/ReportNewBug" role="button"><i
                                         class="fas fa-spider"></i> Report Bugs</a>
