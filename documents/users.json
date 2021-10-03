@@ -1,0 +1,89 @@
+[
+	{
+		"userName": "user1@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User1"
+	},
+	{
+		"userName": "user2@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User2"
+	},
+	{
+		"userName": "user3@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User3"
+	},
+	{
+		"userName": "user4@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User4"
+	},
+	{
+		"userName": "user5@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User5"
+	},
+	{
+		"userName": "user6@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User6"
+	},
+	{   "userName": "user7@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User7"
+	},
+	{
+		"userName": "user8@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User8"
+	},
+    {
+		"userName": "user9@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User9"
+	},	
+	{   "userName": "user10@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User10"
+	},
+	{
+		"userName": "user11@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User11"
+	},
+	{
+		"userName": "user12@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User12"
+	},	
+	{   "userName": "user13@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User13"
+	},
+	{
+		"userName": "user14@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User14"
+	},
+	{
+		"userName": "user15@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User15"
+	},	
+	{   "userName": "user16@gmail.com",
+		"userRole": "Developer",
+		"userEmail": "Iam@User16"
+	},
+	{
+		"userName": "user17@gmail.com",
+		"userRole": "Manager",
+		"userEmail": "Iam@User17"
+	},
+	{
+		"userName": "user18@gmail.com",
+		"userRole": "Tester",
+		"userEmail": "Iam@User18"
+	},
+	
+]
