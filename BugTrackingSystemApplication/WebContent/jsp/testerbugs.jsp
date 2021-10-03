@@ -29,6 +29,9 @@
 <%
 	ArrayList<Bugs> buglist = (ArrayList<Bugs>) request.getAttribute("testerbuglist");
 	pageContext.setAttribute("buglist", buglist);
+	int length= buglist.size();
+	pageContext.setAttribute("length", length);
+    
 
 %>
     <section id="nav-bar">
@@ -43,19 +46,16 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/testerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
+                            
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerbugs.html" role="button"><i
-                                        class="fas fa-tasks"></i> Projects</a>
-                            </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="treportbug.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/ReportNewBug" role="button"><i
                                         class="fas fa-spider"></i> Report Bugs</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>
@@ -67,12 +67,28 @@
         </nav>
     </section>                                
     <br><br><br>
+
+    
     <form>
         <div class="container">
             <h2 align="center">Project Details</h2>
             <hr>
 
-            <table align="center" cellpadding="5" width="100%">
+<c:choose>
+  <c:when test="${length==0}">
+<center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>You Have Not Reported a Bug yet  </th>
+                </tr>
+                </table>
+   
+    
+    </center>  </c:when>
+  
+  <c:otherwise>
+    <table align="center" cellpadding="5" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                
                 <th>Project Name</th>
@@ -90,6 +106,28 @@
 					</tr>
 				</c:forEach>
                 </table>
+  </c:otherwise>
+</c:choose>
+
+
+            <!--  <table align="center" cellpadding="5" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+               
+                <th>Project Name</th>
+                <th>Bug Name</th>
+                <th>Description</th>
+                <th>Severity Level</th>
+                </tr>
+                
+                <c:forEach items="${buglist}" var="bug">
+					<tr align="center">
+						<td>${bug.projectName }</td>
+						<td>${bug.bugTitle }</td>
+						<td>${bug.bugDesc }</td>
+						<td>${bug.severityLevel }</td>
+					</tr>
+				</c:forEach>
+                </table>-->
         </div>
 
     </form>

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.UUID;
@@ -21,31 +22,27 @@ import com.hsbc.util.JDBCUtility;
 public class ImportUsersDao implements ImportUsersDaoIntf {
 
 	@Override
-	public void readFile() throws  UploadNotSuccessfulException{
-	//	System.out.println(s);
-		// TODO Auto-generated method stub
+	public void readFile() throws UploadNotSuccessfulException {
 		try {
-			Connection con=JDBCUtility.getConnection();
-			
+			Connection con = JDBCUtility.getConnection();
+
 			FileReader reader;
-			
-				reader = new FileReader("C:\\jsonfile\\users.json");
-			//System.out.println(s);
-			Object obj=null;
-			
-				try {
-					obj = new JSONParser().parse(reader);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+
+			reader = new FileReader("C:\\importusers\\users.json");
+			Object obj = null;
+
+			try {
+				obj = new JSONParser().parse(reader);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 			JSONArray imp_list = (JSONArray) obj;
 
 			Iterator it = imp_list.iterator();
+			PreparedStatement preparedStmt = null;
 
 			while (it.hasNext()) {
 				JSONObject jo = (JSONObject) it.next();
@@ -56,34 +53,35 @@ public class ImportUsersDao implements ImportUsersDaoIntf {
 				user.setUserRole(userRole);
 				String userEmail = (String) jo.get("userEmail");
 				user.setUserEmail(userEmail);
-				String userId = UUID.randomUUID().toString();
-				String query = "insert into imported_users (user_id,email_id,role,user_name)" + "values(?,?,?,?)";
-				PreparedStatement preparedStmt = con.prepareStatement(query);
+				String[] arr = userEmail.split("@", 2);
+				String userId = arr[0];
+
+				String checkQuery = "Select user_id from imported_users where user_id=?";
+				preparedStmt = con.prepareStatement(checkQuery);
 				preparedStmt.setString(1, userId);
-				preparedStmt.setString(2, userEmail);
-				preparedStmt.setString(3, userRole);
-				preparedStmt.setString(4, userName);
-				preparedStmt.execute();
-				System.out.println("in the loop!");
-				
-			
+				ResultSet result = preparedStmt.executeQuery();
+
+				if (!result.next()) {
+					String insertQuery = "insert into imported_users (user_id,email_id,role,user_name)"
+							+ "values(?,?,?,?)";
+					preparedStmt = con.prepareStatement(insertQuery);
+					preparedStmt.setString(1, userId);
+					preparedStmt.setString(2, userEmail);
+					preparedStmt.setString(3, userRole);
+					preparedStmt.setString(4, userName);
+					preparedStmt.execute();
+
+				}
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-			}
-			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch(SQLException e)
-			{
-				e.printStackTrace();
-			}
-			
-		}		
-		
+
 	}
 
-	
+}

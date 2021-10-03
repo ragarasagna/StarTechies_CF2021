@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 body {
-        background-image: url('../images/bg.jpg');
+        background-image:url('/BugTrackingSystemApplication/jsp/images/bg.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
@@ -61,6 +61,19 @@ input[type=password],#email {
   width:100%;
   opacity: 0.9;
 }
+.input-1{
+    background-image: url(../images/check.png);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    border:1px solid #01cc40;
+}
+.input-2{
+    background-image: url(../images/cancel.png);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    border:1px solid red;
+}
+
 
 .loginbtn:hover {
   opacity: 1;
@@ -74,3 +87,11 @@ footer {
             width: 100%;
             bottom: 0;
         }
+        
+.c1{
+	color:red;
+}
+.error {
+    color: red;
+    font-size: 90%;
+}

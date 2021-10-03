@@ -33,14 +33,19 @@
 <body>
 <%@page import="java.util.*, com.hsbc.beans.Project"%>
 	<%
+	Integer projectCounter= (Integer)session.getAttribute("projectCounter");
+	//int pc= Integer.parseInt(projectCounter);
+	pageContext.setAttribute("projectCounter", projectCounter);
 		List<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
 		pageContext.setAttribute("projects", projects);
+		int length= projects.size();
+		pageContext.setAttribute("length", length);
 	    
 		%>
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
+                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -49,14 +54,15 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="../jsp/pmpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/pmpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
+                            <c:if test="${projectCounter<4}">
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/NewProject" role="button"><i
                                         class="fas fa-project-diagram"></i> New Project</a>
                             </li>&nbsp;&nbsp;&nbsp;
-                         
+                         </c:if>
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
@@ -75,10 +81,25 @@
             <h2 align="center">Projects</h2>
             <hr>
 
-            <table align="center" cellpadding="2" width="100%">
+ <c:choose>
+  <c:when test="${length==0}">
+   <center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>You Have Not Created A Project Yet  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
+  </c:when>
+   <c:otherwise>
+    <table align="center" cellpadding="2" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                   <th>Project Name</th>
                 </tr>
+               
                  <c:forEach items="${projects}" var="project">
                  <tr align="center">
                  <td><a href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${project.projectName }">${project.projectName }</a></td>
@@ -88,6 +109,12 @@
                     <!--  <td><a href="/BugTrackingSystemApplication/ProjectDetailsServlet/p01">p01</a></td>-->
                
                 </table>
+  </c:otherwise>
+</c:choose>
+
+
+
+        
                 
                  
                  

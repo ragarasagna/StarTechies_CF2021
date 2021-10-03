@@ -43,13 +43,15 @@ List<Users> team= (List<Users>)request.getAttribute("team");
 pageContext.setAttribute("team", team);
 List<Bugs> bugslist=(List<Bugs>)request.getAttribute("bugslist");
 pageContext.setAttribute("bugs", bugslist);
+int listLength= bugslist.size();
+pageContext.setAttribute("listLength", listLength);
 
 %>
 
     <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
+                <a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>                            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,15 +60,12 @@ pageContext.setAttribute("bugs", bugslist);
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="developerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/developerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
+                            
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="developerproject.html" role="button"><i
-                                        class="fas fa-spider"></i> Project Assigned</a>
-                            </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>
@@ -108,7 +107,51 @@ pageContext.setAttribute("bugs", bugslist);
 				</c:forEach>
             </table>
 
-            <label for="bugstatus"><b>Bug Status</b></label>
+<c:choose>
+  <c:when test="${listLength==0}">
+  	<br><br><br>
+    <center>
+  
+    <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>No Bugs Assigned  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
+  </c:when>
+   <c:otherwise>
+   <label for="bugstatus"><b>Bug Status</b></label>
+            <table text-align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                <th>Bug Name</th>
+                <th>Status</th>
+                <th>Mark For Closing</th>
+
+                </tr>
+                
+                <c:forEach items="${bugs}" var="bug">
+					<tr>
+						<td>${bug.bugTitle }</td>
+						<td>${bug.bugStatus }</td>
+	                    <td>
+												
+					<c:if test="${bug.markedForClosing.equalsIgnoreCase('no') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
+					      <input type="button" value="close" onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned/close/${bug.bugId }'"/>
+					       </c:if>
+					   </td>
+
+					</tr>
+				</c:forEach>
+             
+            </table>
+   
+  </c:otherwise>
+</c:choose>
+
+
+         <!--    <label for="bugstatus"><b>Bug Status</b></label>
             <table text-align="center" cellpadding="2" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                 <th>Bug Name</th>
@@ -137,7 +180,7 @@ pageContext.setAttribute("bugs", bugslist);
                 
                 
             </table>
-
+-->
         </div>
 
     </form>

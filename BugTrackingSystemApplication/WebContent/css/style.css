@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 body {
-        background-image: url('../images/bg.jpg');
+        background-image: url('/BugTrackingSystemApplication/jsp/images/bg.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;

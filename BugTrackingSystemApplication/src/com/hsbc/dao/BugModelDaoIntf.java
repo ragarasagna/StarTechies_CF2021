@@ -7,7 +7,7 @@ import com.hsbc.beans.Bugs;
 import com.hsbc.exceptions.BugNotReportedException;
 
 public interface BugModelDaoIntf {
-	
+
 	public int reportNewBug(Bugs bug) throws BugNotReportedException;
 
 	public List<Bugs> testerProjectDetails(String emailId);
@@ -17,9 +17,11 @@ public interface BugModelDaoIntf {
 	public void markForClose(String bugId);
 
 	public ArrayList<Bugs> DisplayBugs(String projectName);
+	
+	public ArrayList<Bugs> DisplayBugs(String projectName,String severity);
 
 	public void closeBug(String bugId, String managerEmailId);
-	
+
 	public void assignBugToDeveloper(String developerName, String bugId);
 
 }

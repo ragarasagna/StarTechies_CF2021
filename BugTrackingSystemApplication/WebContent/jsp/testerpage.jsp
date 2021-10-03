@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link rel="stylesheet" href="../css/ptdstyle.css" />
+    <link rel="stylesheet" href="/BugTrackingSystemApplication/css/ptdstyle.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -31,12 +31,9 @@
                 <span class="navbar-text">
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                           
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
-                                        class="fas fa-user"></i> Profile</a>
-                            </li>&nbsp;&nbsp;&nbsp;
-                            <li class="nav-item">
-                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/TesterBugsDetails" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported" role="button"><i
                                         class="fas fa-tasks"></i> Projects</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
@@ -44,7 +41,7 @@
                                         class="fas fa-spider"></i> Report Bugs</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>
@@ -62,10 +59,10 @@
             <hr>
 
             <label for="email"><b>Email</b></label>
-            <p> <%=request.getAttribute("emailId") %></p>
+            <p> <%=session.getAttribute("emailId") %></p>
 
             <label for="role"><b>Role</b></label>
-            <p> <%=request.getAttribute("role") %></p>
+            <p> <%=session.getAttribute("role") %></p>
 
         </div>
 

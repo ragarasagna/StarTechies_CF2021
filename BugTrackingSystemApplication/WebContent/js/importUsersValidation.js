@@ -17,10 +17,10 @@ function readURL(input) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 if (extension == 'json') {
-                    $(input).closest('.fileUpload').find(".icon").attr('src', '../images/json-file-svgrepo-com.svg');
+                    $(input).closest('.fileUpload').find(".icon").attr('src', '/BugTrackingSystemApplication/jsp/images/json-file-svgrepo-com.svg');
                 }
                 else if (extension == 'xml') {
-                    $(input).closest('.fileUpload').find(".icon").attr('src', '../images/xml-svgrepo-com.svg');
+                    $(input).closest('.fileUpload').find(".icon").attr('src', '/BugTrackingSystemApplication/jsp/images/xml-svgrepo-com.svg');
                 }
 
                 else {

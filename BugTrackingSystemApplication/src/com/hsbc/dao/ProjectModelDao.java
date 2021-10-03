@@ -34,17 +34,7 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 		}
 	}
 
-	/*
-	 * 1)String addProject(Project p, String userid); 4)void
-	 * assignTeamMembers(String[] list, String projectId);
-	 * 
-	 * 5)public List<ProjectName> displayprojectNames(String userId)
-	 * 
-	 * - public List<Project> projectdetails()
-	 * 
-	 * 6)public String getStartDate(String projectName);
-	 */
-
+	
 	public String projectName(String emailId) {
 		String name = null;
 		PreparedStatement pstat = null;
@@ -53,82 +43,86 @@ public class ProjectModelDao implements ProjectModelDaoIntf {
 			pstat = con.prepareStatement(sql);
 			pstat.setString(1, emailId);
 			ResultSet rs = pstat.executeQuery();
-			System.out.println(rs);
 			while (rs.next()) {
-				// System.out.println("Hey");
 				name = rs.getString("project_name");
 
-				System.out.println("hello");
 			}
 
 		} catch (SQLException e) {
 
-			System.out.println("world");
 		}
 		return name;
 	}
 
 	public List<Project> projectNames(String emailId) {
-		// TODO Auto-generated method stub
 		List<Project> list = new ArrayList<>();
 		PreparedStatement pstat = null;
-		// String sql="select * from users";
 		String sql = "select project_id from team where user_id in(select user_id from Users where email_id=?);";
-		
-		// String sql="select project_name from project where project_id in (select
-		// project_id from team where user_id = ?);";
+
 		try {
-			
+
 			pstat = con.prepareStatement(sql);
 			pstat.setString(1, emailId);
 			ResultSet rs = pstat.executeQuery();
-			System.out.println(rs);
-			
+
 			while (rs.next()) {
-				String projectId=(rs.getString("project_id"));
-				System.out.println("Project Id inside loop:"+projectId);
-				String query="select project_name from project where project_id=?";
-				pstat=con.prepareStatement(query);
+				String projectId = (rs.getString("project_id"));
+				String query = "select project_name from project where project_id=?";
+				pstat = con.prepareStatement(query);
 				pstat.setString(1, projectId);
-				ResultSet rs1= pstat.executeQuery();
-				if(rs1.next())
-				{
+				ResultSet rs1 = pstat.executeQuery();
+				if (rs1.next()) {
 					Project project = new Project();
 					project.setProjectName(rs1.getString("project_name"));
 					list.add(project);
 				}
-				
-			}
-				
-				
-			for (Project n : list) {
-				System.out.println(n.getProjectName());
-			}
-		} catch (SQLException e) {
 
-			System.out.println("world");
+			}
+
+			
+		} catch (SQLException e) {
+e.printStackTrace();
 		}
 
 		return list;
 	}
 
 	public Project addProject(Project p, String emailId) throws projectNotAddedException {
-		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		boolean flag = true;
 		int projectresult, teamresult;
 		String message = null;
-Project project=null;
+		Project project = null;
+
+		while (flag) {
+			String potentialProjectId = generateProjectId();
+			String checkQuery = "select project_id from project where project_id=?";
+			try {
+				pstmt = con.prepareStatement(checkQuery);
+				pstmt.setString(1, potentialProjectId);
+				ResultSet rs = pstmt.executeQuery();
+
+				if (!rs.next()) {
+					flag = false;
+					p.setProjectId(potentialProjectId);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		try {
 
 			String projectquery = "insert into project (project_id,project_name,project_desc,start_date,project_state) values(?,?,?,?,?);";
-			PreparedStatement pstmt = con.prepareStatement(projectquery);
-			p.setProjectId(UUID.randomUUID().toString());
+			pstmt = con.prepareStatement(projectquery);
 			p.setProjectStatus("InProgress");
 			pstmt.setString(1, p.getProjectId());
 			pstmt.setString(2, p.getProjectName());
 			pstmt.setString(3, p.getProjectDesc());
 			pstmt.setDate(4, Date.valueOf(p.getStartDate()));
 			pstmt.setString(5, p.getProjectStatus());
-			project=p;
+			project = p;
 			projectresult = pstmt.executeUpdate();
 			if (projectresult != 1) {
 				message = "Project not added";
@@ -145,22 +139,30 @@ Project project=null;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+
 		return project;
+
+	}
+
+	public String generateProjectId() {
+		int min = 4001, max = 9000;
+		int randomNumber = (int) ((Math.random() * ((max - min) + 1)) + min);
+		String ans = Integer.toString(randomNumber);
+		return ("PRJ" + ans);
 
 	}
 
 	public int save(String emailId, String projectId) {
 		int teamresult = 0;
 		try {
-			String rolequery = "select role,user_id from Users where emailId=?;";
+			String rolequery = "select role,user_id from Users where email_id=?;";
 			PreparedStatement rstmt = con.prepareStatement(rolequery);
 			rstmt.setString(1, emailId);
 			ResultSet res = rstmt.executeQuery();
 			String role = null, userId = null;
 			while (res.next()) {
 				role = res.getString("role");
-				userId = res.getString("userId");
+				userId = res.getString("user_id");
 			}
 			String teamquery = "insert into team(user_id,project_id,role) values (?,?,?);";
 			PreparedStatement tstmt;
@@ -238,7 +240,6 @@ Project project=null;
 
 		Users userObj = null;
 		ArrayList<Users> userList = new ArrayList<>();
-		System.out.println("teamlistdao: " + userList);
 
 		try {
 
@@ -277,7 +278,6 @@ Project project=null;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("startdate from dao" + dateStr);
 		return dateStr;
 	}
 
@@ -308,7 +308,6 @@ Project project=null;
 				String bugStatus = rs.getString(10);
 				String severityLevel = rs.getString(11);
 				boolean markedForClosing = rs.getBoolean(8);
-				System.out.println("the markeforclosing is: " + markedForClosing);
 				String message;
 				if (markedForClosing) {
 
@@ -333,13 +332,14 @@ Project project=null;
 	public List<Users> fetchDevelopers() {
 
 		List<Users> devlist = new ArrayList<Users>();
-		String query = "select * from users where role='Developer' and project_counter";
+		String query = "select * from users where role='Developer' and project_counter=?";
 
 		Connection con = null;
 		try {
 			con = JDBCUtility.getConnection();
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(query);
+			stmt.setInt(1, 0);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
 				Users user = new Users();
@@ -368,23 +368,21 @@ Project project=null;
 	public List<String> fetchTesters(String projectManagerEmailId) {
 
 		Connection con = null;
-		PreparedStatement stmt=null;
+		PreparedStatement stmt = null;
 		List<String> projectIds = new ArrayList<String>();
 		List<String> testers = new ArrayList<String>();
 		List<String> finalTesters = new ArrayList<String>();
 
 		try {
 			con = JDBCUtility.getConnection();
-			
 
 			String pmId = "select user_id from Users where email_id=?";
 			stmt = con.prepareStatement(pmId);
 			stmt.setString(1, projectManagerEmailId);
-			ResultSet res=stmt.executeQuery();
-			String pmid=null;
-			if(res.next())
-			{
-				pmid=res.getString("user_id");
+			ResultSet res = stmt.executeQuery();
+			String pmid = null;
+			if (res.next()) {
+				pmid = res.getString("user_id");
 			}
 			String projectsQuery = "select project_id from team where user_id=?";
 
@@ -406,12 +404,13 @@ Project project=null;
 
 		for (String s : projectIds) {
 			try {
-				String testersInSameProjectquery = "select distinct user_id from team where role='Tester' and project_id=?;";
+				String testersInSameProjectquery = "select distinct user_name from Users where user_id in(select distinct user_id from team where role='Tester' and project_id=?);";
+
 				PreparedStatement stmt2 = con.prepareStatement(testersInSameProjectquery);
 				stmt2.setString(1, s);
 				ResultSet res2 = stmt2.executeQuery();
 				while (res2.next()) {
-					String testerid = res2.getString("user_id");
+					String testerid = res2.getString("user_name");
 					testers.add(testerid);
 				}
 			} catch (SQLException e) {
@@ -419,15 +418,14 @@ Project project=null;
 				e.printStackTrace();
 			}
 
-			// add to testers list.
 		}
 
-		String testersAvailablequery = "select user_id from Users where role='Tester' and project_counter<2;";
+		String testersAvailablequery = "select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<2);";
 		try {
 			PreparedStatement stmt3 = con.prepareStatement(testersAvailablequery);
 			ResultSet res3 = stmt3.executeQuery();
 			while (res3.next()) {
-				String testerid = res3.getString("user_id");
+				String testerid = res3.getString("user_name");
 				finalTesters.add(testerid);
 			}
 		}
@@ -437,54 +435,53 @@ Project project=null;
 			e.printStackTrace();
 		}
 
+		List<String> availabletesters = new ArrayList<String>();
+		String alltestersavailabe = "select distinct user_name from Users where user_id in(select user_id from Users where role='Tester' and project_counter<1);";
+		try {
+			PreparedStatement stmt4 = con.prepareStatement(alltestersavailabe);
+			ResultSet res4 = stmt4.executeQuery();
+			while (res4.next()) {
+				String testerid = res4.getString("user_name");
+				availabletesters.add(testerid);
+			}
+		}
+
+		catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 		testers.retainAll(finalTesters);
-	
-List<String> team=testers.stream().distinct().collect(Collectors.toList());
-System.out.println("team mebers are dao..."+team);
+		for (String tester : availabletesters) {
+			if (!testers.contains(tester))
+				testers.add(tester);
+		}
+
+		List<String> team = testers.stream().distinct().collect(Collectors.toList());
 		return team;
 	}
-	
-	
-	public List<Users> fetchDevelopersByProjectName(String projectName)
-	{
-		List<Users> devList= new ArrayList<>();
+
+	public List<Users> fetchDevelopersByProjectName(String projectName) {
+		List<Users> devList = new ArrayList<>();
 		PreparedStatement pstmt = null;
-		String query=" WITH temp AS(SELECT u.user_name,u.role,p.project_name FROM users u INNER JOIN team t ON t.user_id = u.user_id INNER JOIN project p ON p.project_id = t.project_id) SELECT distinct user_name FROM temp WHERE role = 'Developer' and project_name=?";
+		String query = " WITH temp AS(SELECT u.user_name,u.role,p.project_name FROM users u INNER JOIN team t ON t.user_id = u.user_id INNER JOIN project p ON p.project_id = t.project_id) SELECT distinct user_name FROM temp WHERE role = 'Developer' and project_name=?";
 		try {
-			pstmt=con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, projectName);
-			ResultSet rs=pstmt.executeQuery();
-			
-			while(rs.next())
-			{
-				String name=rs.getString("user_name");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("user_name");
 				Users u = new Users();
 				u.setUserName(name);
 				devList.add(u);
-				
-						
+
 			}
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Developer List:"+devList);
 		return devList;
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

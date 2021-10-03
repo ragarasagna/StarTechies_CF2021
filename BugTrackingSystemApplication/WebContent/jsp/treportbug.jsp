@@ -39,15 +39,15 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="testerpage.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/testerpage.jsp" role="button"><i
                                         class="fas fa-user"></i> Profile</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href=""/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported"" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported"role="button"><i
                                         class="fas fa-tasks"></i> Projects</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
-                                <a class="btn btn-warning" href="home.html" role="button"><i
+                                <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut" role="button"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a>
                                 </button>
                             </li>
@@ -59,13 +59,13 @@
         </nav>
     </section>                                
     <br><br><br>
-    <form action="/BugTrackingSystemApplication/jsp/BugsServlet/" method="POST">
+    <form action="/BugTrackingSystemApplication/jsp/BugsServlet/treportbug" method="POST">
         <div class="container">
             <h2 align="center">Report Bugs</h2>
             <hr>
             <label for="pname"><b>Project Name</b></label>
             <!--input type="text" placeholder="Enter name" name="pname" id="pname" required-->
-            <select name="pname" id="pname">
+            <select name="pname" id="pname" required>
                 <option>Select Project Name</option>
                
                 <c:forEach items="${projects}" var="projects">

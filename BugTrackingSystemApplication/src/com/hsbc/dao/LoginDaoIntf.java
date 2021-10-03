@@ -7,4 +7,6 @@ public interface LoginDaoIntf {
 	public boolean checkPassword(String plainPassword,String hashedPassword);
 	public void updateLoginTime(String emailId);
 	public Date getLastLoginTime(String emailId);
+	public int fetchProjectCounter(String emailId);
+	
 }

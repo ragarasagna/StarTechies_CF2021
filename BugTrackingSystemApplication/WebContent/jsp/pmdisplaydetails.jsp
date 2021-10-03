@@ -12,7 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!--link rel="stylesheet" href="../css/ptdstyle.css" /-->
 <link rel="stylesheet"
 	href="/BugTrackingSystemApplication/css/display.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +49,8 @@
 		pageContext.setAttribute("team", users);
 		ArrayList<Bugs> bugs = (ArrayList<Bugs>) request.getAttribute("bugslist");
 		pageContext.setAttribute("bugslist", bugs);
-
+		int length= bugs.size();
+		pageContext.setAttribute("length", length);
 		ArrayList<Users> devlist = (ArrayList<Users>) request.getAttribute("developerList");
 		pageContext.setAttribute("devlist", devlist);
 
@@ -64,7 +64,7 @@
 	<section id="nav-bar">
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="home.html" style="font-size: 60px;"><i
+				<a class="navbar-brand" href="/BugTrackingSystemApplication/jsp/home.jsp" style="font-size: 60px;"><i
 					class="fas fa-bug fa-spin"></i>&nbsp;Bug Tracker</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -84,6 +84,7 @@
 									Project</a></li>&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a class="btn btn-warning"
 								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/Details"
+							
 								role="button"><i class="fas fa-tasks"></i> Project Lists</a></li>&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a class="btn btn-warning"
 								href="/BugTrackingSystemApplication/jsp/ProjectsServlet/LogOut"
@@ -97,7 +98,9 @@
 		</nav>
 	</section>
 	<br>
-	<form>
+	<form  method="POST"  name="severity" id="severity" action="/BugTrackingSystemApplication/jsp/BugsServlet/filter" style="border: transparent"></form>
+	<form method="POST" id="assign" name="assign"
+		action="/BugTrackingSystemApplication/jsp/BugsServlet/pmdisplaydetails">
 		<div class="container">
 			<h1 align="center">Project Details</h1>
 			<hr>
@@ -132,15 +135,23 @@
 			</table>
 
 
-
-
-
-
-
-			<br> <label for="bugs"><b>Bugs List</b></label>
-
-
-
+			
+<c:choose>
+  <c:when test="${length==0}">
+  <br> <br><br>
+  <center>
+  
+     <table align="center" cellpadding="2" width="100%">
+                <tr bgcolor="black" class="whitetext" align="center" style="color:white">
+                  <th>Bugs Are Not Yet Reported  </th>
+                </tr>
+                </table>
+   
+    
+    </center>
+  </c:when>
+  <c:otherwise>
+  	<br> <label for="bugs"><b>Bugs List</b></label>
 			<table>
 				<tr bgcolor="black" class="whitetext" align="center"
 					style="color: white">
@@ -153,36 +164,27 @@
 							</button>
 
 							<div class="dropdown-menu">
-								<!--a class="dropdown-item" href="#"> Critial </a>  
-                    <a class="dropdown-item" href="#"> Major </a>  
-                    <a class="dropdown-item" href="#"> Minor </a>  
-                    <a class="dropdown-item" href="#"> Trivial </a-->
-								<select class="form-control" size=5>
-									<option value="severerity" align="center">Select
-										Severity</option>
-									<option value="critial">Critial</option>
+
+								<select class="form-control" size=5 onchange="severity.submit()" name="filter" form="severity">
+									<option value="default" selected>Choose severity</option>
+									<option value="all" >All</option>
+									<option value="critical">Critical</option>
 									<option value="major">Major</option>
 									<option value="minor">Minor</option>
 									<option value="trivial">Trivial</option>
 								</select>
 							</div>
-						</div> <!--select class="form-control">
-                        <option value="severerity" align="center">Select Severity</option>
-                        <option value="critial">Critial</option>
-                        <option value="major">Major</option>
-                        <option value="minor">Minor</option>
-                        <option value="trivial">Trivial</option>
-                    </select--></th>
+						</div></th>
 					<th>Severity Level</th>
 
 					<th>Description</th>
-					<th>Present status</th>
-					<th>marked for closing</th>
-					<th>Developers</th>
-					<th>Assign</th>
+					<th>Present status&nbsp;&nbsp;&nbsp;</th>
+					<th>Marked For Closing&nbsp;&nbsp;&nbsp;</th>
+					<th>Assigned To&nbsp;&nbsp;&nbsp;</th>
 					<th>Close&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
 				</tr>
+
 				<c:forEach items="${bugslist}" var="bug">
 					<tr>
 						<td>${bug.bugTitle }</td>
@@ -190,38 +192,55 @@
 						<td>${bug.bugDesc }</td>
 						<td>${bug.bugStatus }</td>
 						<td>${bug.markedForClosing}</td>
-
-							<td><select name="devName" >
-						<option value="" selected>Selected</option>
-								<c:forEach items="${devlist}" var="developer">
-									<option value="${developer.userName}">${developer.userName}</option>
-								</c:forEach>
-						</select></td>
+						<td>${bug.assignedTo}</td>
 						
-						
-						<c:if test="${bug.bugStatus.equalsIgnoreCase('open')}">
-							<td><input type="button" value="Assign"
-								onclick="window.location.href='/BugTrackingSystemApplication/jsp/BugsServlet/${projectName}/AssignBug/${bug.bugId }'"></td>
-						</c:if>
+						<td><c:if
+								test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
+								<input type="button" value="close"
+									onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${projectName}/close/${bug.bugId }'" />
 
-						<c:if
-							test="${bug.markedForClosing.equalsIgnoreCase('yes') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
-							<td>
-								<!-- <a href="/BugTrackingSystemApplication/CloseBugServlet/${bug.bugId}">Close</a>-->
-								<!-- <input type="submit" name="close" value="close" >--> <input
-								type="button" value="close"
-								onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/Details/${projectName}/close/${bug.bugId }'" />
-								<!--  ons="updateStatus('${bug.bugId}','<%=request.getAttribute("projectname")%>')">-->
-							</td>
-						</c:if>
+							</c:if></td>
 
 					</tr>
 				</c:forEach>
+				
 			</table>
-
+			
+			<br> <label for="bugs"><b>Assign Bugs</b></label>
+			<table>
+				<tr bgcolor="black" class="whitetext" align="center"
+					style="color: white">
+					<th>Bug Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th>Developers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th>Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				</tr>
+				<tr >
+					<td><input type="hidden" value="${projectName}" name="projectName">
+					<input type="hidden" value="${projectName}" name="projectName1" form="severity">
+					<select name="bugId">
+								<option align="center" value="Bugs" selected>Bugs</option>
+								<c:forEach items="${bugslist}" var="bug">
+									<c:if test="${bug.bugStatus.equals('Open')}">
+									<option value="${bug.bugId}">${bug.bugTitle}</option>
+									</c:if>
+								</c:forEach>
+						</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+					<td ><select name="devName">
+							<option value="Developers" selected>Developers</option>
+							<c:forEach items="${devlist}" var="developer">
+								<option value="${developer.userName}">${developer.userName}</option>
+							</c:forEach>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><input type="submit" value="Assign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				</tr>
+			</table>
+			</c:otherwise>
+</c:choose>
 		</div>
-		<input type="hidden" name="managername" value=" ${managername}"></input>
+
+		<input type="hidden" name="managername" value=" ${managername}" >
 	</form>
+
 	<br>
 	<br>
 	<br>
