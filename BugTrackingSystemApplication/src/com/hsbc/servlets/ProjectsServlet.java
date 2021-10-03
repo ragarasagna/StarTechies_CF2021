@@ -64,7 +64,6 @@ public class ProjectsServlet extends HttpServlet {
 		List<Users> team = projectService.getTeamMembers(projectName);
 		List<Bugs> bugsList = bugService.fetchAssignedBug(emailId);
 
-
 		request.setAttribute("projectname", projectName);
 		request.setAttribute("projectmanager", projectManager);
 		request.setAttribute("startdate", date);
@@ -153,49 +152,48 @@ public class ProjectsServlet extends HttpServlet {
 			path = request.getPathInfo().substring(1);
 			arr = path.split("/", 5);
 		}
-			for (String s : arr) {
-			if (arr[0].equals("Details")) {
-				if (arr.length > 1) {
-					if (arr.length == 2) {
-						projectName = arr[1];
-						projectDetails(request, response, projectName, session);
-					} else if (arr[2].equals("close")) {
-						String bugId = arr[3];
-						projectName = arr[1];
-						closeBug(request, response, session, bugId, projectName);
-					}
 
-				} else {
-					projectList(request, response, session);
-
-				}
-			} else if (arr[0].equals("NewProject")) {
-				if (arr.length > 1) {
-					String bugid = arr[2];
-					markForClosing(request, response, bugid);
-
-				} else {
-					newProject(request, response, session);
+		if (arr[0].equals("Details")) {
+			if (arr.length > 1) {
+				if (arr.length == 2) {
+					projectName = arr[1];
+					projectDetails(request, response, projectName, session);
+				} else if (arr[2].equals("close")) {
+					String bugId = arr[3];
+					projectName = arr[1];
+					closeBug(request, response, session, bugId, projectName);
 				}
 
-			} else if (arr[0].equals("ProjectAssigned")) {
-				if (arr.length > 1) {
-					String bugid = arr[2];
-					markForClosing(request, response, bugid);
+			} else {
+				projectList(request, response, session);
 
-				} else {
-					retrieveProject(request, response, session);
-				}
+			}
+		} else if (arr[0].equals("NewProject")) {
+			if (arr.length > 1) {
+				String bugid = arr[2];
+				markForClosing(request, response, bugid);
 
-			} else if (arr[0].equals("TesterBugDetails")) {
-
-			} else if (arr[0].equals("LogOut")) {
-				logOutSession(request, response, session);
+			} else {
+				newProject(request, response, session);
 			}
 
-			else if (arr[0].isEmpty()) {
-				response.sendRedirect("/BugTrackingSystemApplication/jsp/ProjectsServlet/Details");
+		} else if (arr[0].equals("ProjectAssigned")) {
+			if (arr.length > 1) {
+				String bugid = arr[2];
+				markForClosing(request, response, bugid);
+
+			} else {
+				retrieveProject(request, response, session);
 			}
+
+		} else if (arr[0].equals("TesterBugDetails")) {
+
+		} else if (arr[0].equals("LogOut")) {
+			logOutSession(request, response, session);
+		}
+
+		else if (arr[0].isEmpty()) {
+			response.sendRedirect("/BugTrackingSystemApplication/jsp/ProjectsServlet/Details");
 		}
 
 	}

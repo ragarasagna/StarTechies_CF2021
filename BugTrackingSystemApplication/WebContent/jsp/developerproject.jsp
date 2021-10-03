@@ -138,7 +138,6 @@ pageContext.setAttribute("listLength", listLength);
 	                    <td>
 												
 					<c:if test="${bug.markedForClosing.equalsIgnoreCase('no') && bug.bugStatus.equalsIgnoreCase('inprogress')}">
-					      <%--  <input type="button" name="close" value="close" href="/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned/close/${bug.bugId }" > --%>
 					      <input type="button" value="close" onclick="window.location.href='/BugTrackingSystemApplication/jsp/ProjectsServlet/ProjectAssigned/close/${bug.bugId }'"/>
 					       </c:if>
 					   </td>

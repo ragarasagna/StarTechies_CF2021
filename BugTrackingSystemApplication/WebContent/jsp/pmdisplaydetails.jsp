@@ -135,12 +135,13 @@
 			</table>
 
 
-			<br> <br><br>
+			
 <c:choose>
   <c:when test="${length==0}">
+  <br> <br><br>
   <center>
   
-    <table align="center" cellpadding="2" width="100%">
+     <table align="center" cellpadding="2" width="100%">
                 <tr bgcolor="black" class="whitetext" align="center" style="color:white">
                   <th>Bugs Are Not Yet Reported  </th>
                 </tr>
@@ -149,7 +150,6 @@
     
     </center>
   </c:when>
-  
   <c:otherwise>
   	<br> <label for="bugs"><b>Bugs List</b></label>
 			<table>
@@ -178,8 +178,8 @@
 					<th>Severity Level</th>
 
 					<th>Description</th>
-					<th>Present status</th>
-					<th>Marked For Closing</th>
+					<th>Present status&nbsp;&nbsp;&nbsp;</th>
+					<th>Marked For Closing&nbsp;&nbsp;&nbsp;</th>
 					<th>Assigned To&nbsp;&nbsp;&nbsp;</th>
 					<th>Close&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
