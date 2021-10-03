@@ -34,7 +34,7 @@
                            
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/BugsReported" role="button"><i
-                                        class="fas fa-tasks"></i> Projects</a>
+                                        class="fas fa-tasks"></i> Bugs Reported</a>
                             </li>&nbsp;&nbsp;&nbsp;
                             <li class="nav-item">
                                 <a class="btn btn-warning" href="/BugTrackingSystemApplication/jsp/BugsServlet/ReportNewBug" role="button"><i

@@ -71,7 +71,7 @@
     
     <form>
         <div class="container">
-            <h2 align="center">Project Details</h2>
+            <h2 align="center">Bugs Reported</h2>
             <hr>
 
 <c:choose>
